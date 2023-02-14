@@ -25,7 +25,7 @@ namespace HotelRealtaPayment.WebApi.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var banks = _repoManager.BankRepository
+            var b = _repoManager.BankRepository
                 .FindAllBank()
                 .Select(b => new BankDto
                 {
@@ -38,16 +38,36 @@ namespace HotelRealtaPayment.WebApi.Controllers
                 status = "success",
                 data = new
                 {
-                    banks = banks
+                    banks = b
                 }
             });
         }
 
         // GET api/<BanksController>/5
         [HttpGet("{id}", Name = "GetBank")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            var b = _repoManager.BankRepository.FindBankById(id);
+
+            if (b == null)
+                return NotFound();
+
+            var bankDto = new BankDto
+            {
+                id = b.bank_entity_id,
+                code = b.bank_code,
+                name = b.bank_name,
+                modifiedDate = b.bank_modified_date
+            };
+
+            return Ok(new
+            {
+                status = "success",
+                data = new
+                {
+                    bank = bankDto
+                }
+            });
         }
 
         // POST api/<BanksController>
@@ -77,14 +97,51 @@ namespace HotelRealtaPayment.WebApi.Controllers
 
         // PUT api/<BanksController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] BankDto bankDto)
         {
+            var bank = new Bank()
+            {
+                bank_entity_id = id,
+                bank_code = bankDto.code,
+                bank_name = bankDto.name,
+            };
+
+            var rows = _repoManager.BankRepository.Edit(bank);
+
+            if (rows == 0)
+            {
+                return NotFound();
+            }
+
+
+            return CreatedAtRoute("GetBank", new { id = id },
+            new
+            {
+                status = "success",
+                message = "Edit bank successfully.",
+                data = new
+                {
+                    idBank = id
+                }
+            }
+            );
         }
 
         // DELETE api/<BanksController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            var rows = _repoManager.BankRepository.Remove(id);
+
+            if (rows == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(new {
+                status = "success",
+                message = "Delete bank successfully.",
+            });
         }
     }
 }

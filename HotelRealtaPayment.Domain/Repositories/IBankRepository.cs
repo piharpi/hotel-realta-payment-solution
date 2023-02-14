@@ -8,7 +8,7 @@ namespace HotelRealtaPayment.Domain.Repositories
         Task<IEnumerable<Bank>> FindAllBankAsync();
         Bank FindBankById(int bankId);
         T Insert <T>(Bank bank);
-        void Edit(Bank bank);
-        void Remove(Bank bank);
+        int Edit(Bank bank);
+        int Remove(int bankId);
     }
 }
