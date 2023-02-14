@@ -2,6 +2,7 @@
 using HotelRealtaPayment.Domain.Repositories;
 using HotelRealtaPayment.Persistence.Base;
 using HotelRealtaPayment.Persistence.RepositoryContext;
+using System.Data;
 
 namespace HotelRealtaPayment.Persistence.Repositories
 {
@@ -41,7 +42,26 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
         public T Insert<T>(Bank bank)
         {
-            throw new NotImplementedException();
+            SqlCommandModel model = new SqlCommandModel()
+            {
+                CommandText = @"INSERT INTO Payment.Bank (bank_code, bank_name)
+                                VALUES (@code, @name);",
+                CommandType = CommandType.Text,
+                CommandParameters = new SqlCommandParameterModel[] {
+                    new SqlCommandParameterModel() {
+                        ParameterName = "@code",
+                        DataType = DbType.String,
+                        Value = bank.bank_code
+                    },
+                    new SqlCommandParameterModel() {
+                        ParameterName = "@name",
+                        DataType = DbType.String,
+                        Value = bank.bank_name
+                    }
+                }
+            };
+
+            return Create<T>(model);
         }
 
         public void Remove(Bank bank)

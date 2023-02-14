@@ -1,5 +1,6 @@
 ﻿using HotelRealtaPayment.Contract.Models;
 using HotelRealtaPayment.Domain.Base;
+using HotelRealtaPayment.Domain.Entities;
 using HotelRealtaPayment.Services.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,7 +44,7 @@ namespace HotelRealtaPayment.WebApi.Controllers
         }
 
         // GET api/<BanksController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetBank")]
         public string Get(int id)
         {
             return "value";
@@ -51,8 +52,27 @@ namespace HotelRealtaPayment.WebApi.Controllers
 
         // POST api/<BanksController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] BankDto bankDto)
         {
+            var bank = new Bank()
+            {
+                bank_code = bankDto.code,
+                bank_name = bankDto.name,
+            };
+
+            var id = _repoManager.BankRepository.Insert<int>(bank);
+
+            return CreatedAtRoute("GetBank", new { id = id },
+            new
+            {
+                status = "success",
+                message = "Create bank successfully.",
+                data = new
+                {
+                    idBank = id
+                }
+            }
+            );
         }
 
         // PUT api/<BanksController>/5

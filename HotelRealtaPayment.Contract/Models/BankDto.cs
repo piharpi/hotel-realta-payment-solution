@@ -17,7 +17,7 @@ namespace HotelRealtaPayment.Contract.Models
         [MaxLength(55)]
         public string name { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public DateTime modifiedDate { get; set; } 
     }
 }
