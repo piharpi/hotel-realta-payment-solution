@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "ctM6PJqL8GorZoqeSwrTifnuGEc4dKDzN1fptJSCVcc=",
+  "Source": "HotelRealtaPayment.WebApi",
+  "BasePath": "_content/HotelRealtaPayment.WebApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

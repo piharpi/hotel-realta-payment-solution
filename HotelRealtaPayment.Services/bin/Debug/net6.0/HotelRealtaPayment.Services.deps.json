@@ -1,0 +1,52 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "HotelRealtaPayment.Services/1.0.0": {
+        "dependencies": {
+          "HotelRealtaPayment.Services.Abstraction": "1.0.0",
+          "NLog": "5.1.1"
+        },
+        "runtime": {
+          "HotelRealtaPayment.Services.dll": {}
+        }
+      },
+      "NLog/5.1.1": {
+        "runtime": {
+          "lib/netstandard2.0/NLog.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.1.1.1522"
+          }
+        }
+      },
+      "HotelRealtaPayment.Services.Abstraction/1.0.0": {
+        "runtime": {
+          "HotelRealtaPayment.Services.Abstraction.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "HotelRealtaPayment.Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NLog/5.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YBfUDzipCaucs+8ieCDp8XECumiWsQbZwSUVLlt9i7FGV03nOPqoVzLtmlhbTxq4TN92BBsLacqPAE/ZyDDJ1g==",
+      "path": "nlog/5.1.1",
+      "hashPath": "nlog.5.1.1.nupkg.sha512"
+    },
+    "HotelRealtaPayment.Services.Abstraction/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

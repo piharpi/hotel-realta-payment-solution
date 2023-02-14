@@ -10,4 +10,12 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HotelRealtaPayment.Contract\HotelRealtaPayment.Contract.csproj" />
+    <ProjectReference Include="..\HotelRealtaPayment.Domain\HotelRealtaPayment.Domain.csproj" />
+    <ProjectReference Include="..\HotelRealtaPayment.Persistence\HotelRealtaPayment.Persistence.csproj" />
+    <ProjectReference Include="..\HotelRealtaPayment.Services.Abstraction\HotelRealtaPayment.Services.Abstraction.csproj" />
+    <ProjectReference Include="..\HotelRealtaPayment.Services\HotelRealtaPayment.Services.csproj" />
+  </ItemGroup>
+
 </Project>

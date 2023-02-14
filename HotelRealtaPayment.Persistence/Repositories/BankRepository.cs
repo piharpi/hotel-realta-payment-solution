@@ -11,12 +11,20 @@ namespace HotelRealtaPayment.Persistence.Repositories
         { 
         }
 
-        public void Edit(Bank bank)
+        public IEnumerable<Bank> FindAllBank()
         {
-            throw new NotImplementedException();
+            var query = "SELECT bank_entity_id, bank_code, bank_name FROM Payment.Bank";
+
+            IEnumerator<Bank> listOfBank = FindAll<Bank>(query);
+
+            while (listOfBank.MoveNext())
+            {
+                var data = listOfBank.Current;
+                yield return data;
+            }
         }
 
-        public IEnumerable<Bank> FindAllBank()
+        public void Edit(Bank bank)
         {
             throw new NotImplementedException();
         }

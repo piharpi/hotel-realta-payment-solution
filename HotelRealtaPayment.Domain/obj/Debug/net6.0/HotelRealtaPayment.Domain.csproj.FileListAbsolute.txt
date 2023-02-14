@@ -1,0 +1,12 @@
+C:\Users\Code.id\Documents\Harpi\HotelRealtaPaymentSolution\HotelRealtaPayment.Domain\bin\Debug\net6.0\HotelRealtaPayment.Domain.deps.json
+C:\Users\Code.id\Documents\Harpi\HotelRealtaPaymentSolution\HotelRealtaPayment.Domain\bin\Debug\net6.0\HotelRealtaPayment.Domain.dll
+C:\Users\Code.id\Documents\Harpi\HotelRealtaPaymentSolution\HotelRealtaPayment.Domain\bin\Debug\net6.0\HotelRealtaPayment.Domain.pdb
+C:\Users\Code.id\Documents\Harpi\HotelRealtaPaymentSolution\HotelRealtaPayment.Domain\obj\Debug\net6.0\HotelRealtaPayment.Domain.csproj.AssemblyReference.cache
+C:\Users\Code.id\Documents\Harpi\HotelRealtaPaymentSolution\HotelRealtaPayment.Domain\obj\Debug\net6.0\HotelRealtaPayment.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Code.id\Documents\Harpi\HotelRealtaPaymentSolution\HotelRealtaPayment.Domain\obj\Debug\net6.0\HotelRealtaPayment.Domain.AssemblyInfoInputs.cache
+C:\Users\Code.id\Documents\Harpi\HotelRealtaPaymentSolution\HotelRealtaPayment.Domain\obj\Debug\net6.0\HotelRealtaPayment.Domain.AssemblyInfo.cs
+C:\Users\Code.id\Documents\Harpi\HotelRealtaPaymentSolution\HotelRealtaPayment.Domain\obj\Debug\net6.0\HotelRealtaPayment.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Code.id\Documents\Harpi\HotelRealtaPaymentSolution\HotelRealtaPayment.Domain\obj\Debug\net6.0\HotelRealtaPayment.Domain.dll
+C:\Users\Code.id\Documents\Harpi\HotelRealtaPaymentSolution\HotelRealtaPayment.Domain\obj\Debug\net6.0\refint\HotelRealtaPayment.Domain.dll
+C:\Users\Code.id\Documents\Harpi\HotelRealtaPaymentSolution\HotelRealtaPayment.Domain\obj\Debug\net6.0\HotelRealtaPayment.Domain.pdb
+C:\Users\Code.id\Documents\Harpi\HotelRealtaPaymentSolution\HotelRealtaPayment.Domain\obj\Debug\net6.0\ref\HotelRealtaPayment.Domain.dll

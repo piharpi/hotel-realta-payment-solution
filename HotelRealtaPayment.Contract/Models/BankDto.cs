@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace HotelRealtaPayment.Contract.Models
 {
@@ -14,7 +15,9 @@ namespace HotelRealtaPayment.Contract.Models
         [Required]
         [MinLength(3)]
         [MaxLength(55)]
-        public string name { get; set; } 
+        public string name { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public DateTime modifiedDate { get; set; } 
     }
 }
