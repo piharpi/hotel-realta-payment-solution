@@ -9,6 +9,7 @@ namespace HotelRealtaPayment.Persistence.Base
     {
         private AdoDbContext _adoContext;
         private IBankRepository _bankRepository;
+        private IFintechRepository _fintechRepository;
 
         public RepositoryManager(AdoDbContext adoContext)
         {
@@ -16,5 +17,6 @@ namespace HotelRealtaPayment.Persistence.Base
         }
 
         public IBankRepository BankRepository => _bankRepository ??= new BankRepository(_adoContext);
+        public IFintechRepository FintechRepository => _fintechRepository ??= new FintechRepository(_adoContext);
     }
 }
