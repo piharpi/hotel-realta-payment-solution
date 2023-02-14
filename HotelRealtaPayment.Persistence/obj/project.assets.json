@@ -146,6 +146,16 @@
             "rid": "win"
           }
         }
+      },
+      "HotelRealtaPayment.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/HotelRealtaPayment.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HotelRealtaPayment.Domain.dll": {}
+        }
       }
     }
   },
@@ -462,10 +472,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "HotelRealtaPayment.Domain/1.0.0": {
+      "type": "project",
+      "path": "../HotelRealtaPayment.Domain/HotelRealtaPayment.Domain.csproj",
+      "msbuildProject": "../HotelRealtaPayment.Domain/HotelRealtaPayment.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "HotelRealtaPayment.Domain >= 1.0.0",
       "System.Data.SqlClient >= 4.8.5"
     ]
   },
@@ -495,7 +511,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Domain\\HotelRealtaPayment.Domain.csproj": {
+              "projectPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Domain\\HotelRealtaPayment.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

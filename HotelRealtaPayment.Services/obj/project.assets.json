@@ -1,11 +1,68 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {}
+    "net6.0": {
+      "NLog/5.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/NLog.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/NLog.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "HotelRealtaPayment.Services.Abstraction/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/HotelRealtaPayment.Services.Abstraction.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HotelRealtaPayment.Services.Abstraction.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "NLog/5.1.1": {
+      "sha512": "YBfUDzipCaucs+8ieCDp8XECumiWsQbZwSUVLlt9i7FGV03nOPqoVzLtmlhbTxq4TN92BBsLacqPAE/ZyDDJ1g==",
+      "type": "package",
+      "path": "nlog/5.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "N.png",
+        "lib/net35/NLog.dll",
+        "lib/net35/NLog.xml",
+        "lib/net45/NLog.dll",
+        "lib/net45/NLog.xml",
+        "lib/net46/NLog.dll",
+        "lib/net46/NLog.xml",
+        "lib/netstandard1.3/NLog.dll",
+        "lib/netstandard1.3/NLog.xml",
+        "lib/netstandard1.5/NLog.dll",
+        "lib/netstandard1.5/NLog.xml",
+        "lib/netstandard2.0/NLog.dll",
+        "lib/netstandard2.0/NLog.xml",
+        "nlog.5.1.1.nupkg.sha512",
+        "nlog.nuspec"
+      ]
+    },
+    "HotelRealtaPayment.Services.Abstraction/1.0.0": {
+      "type": "project",
+      "path": "../HotelRealtaPayment.Services.Abstraction/HotelRealtaPayment.Services.Abstraction.csproj",
+      "msbuildProject": "../HotelRealtaPayment.Services.Abstraction/HotelRealtaPayment.Services.Abstraction.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0": []
+    "net6.0": [
+      "HotelRealtaPayment.Services.Abstraction >= 1.0.0",
+      "NLog >= 5.1.1"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Code.id\\.nuget\\packages\\": {}
@@ -33,7 +90,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Services.Abstraction\\HotelRealtaPayment.Services.Abstraction.csproj": {
+              "projectPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Services.Abstraction\\HotelRealtaPayment.Services.Abstraction.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -45,6 +106,12 @@
     "frameworks": {
       "net6.0": {
         "targetAlias": "net6.0",
+        "dependencies": {
+          "NLog": {
+            "target": "Package",
+            "version": "[5.1.1, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",

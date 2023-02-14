@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotelRealtaPayment.Persistence.RepositoryContext
 {
-    internal class SqlCommandParameterModel
+    public class SqlCommandParameterModel
     {
         public string ParameterName { get; set; }
         public DbType DataType { get; set; }

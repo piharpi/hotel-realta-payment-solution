@@ -2,7 +2,7 @@
 
 namespace HotelRealtaPayment.Persistence.RepositoryContext
 {
-    internal class SqlCommandModel
+    public class SqlCommandModel
     {
         public string CommandText { get; set; }
         public CommandType CommandType { get; set; }

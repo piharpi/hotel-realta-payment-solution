@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace HotelRealtaPayment.Persistence.RepositoryContext
 {
-    internal class AdoDbContext : IDisposable
+    public class AdoDbContext : IDisposable
     {
         private readonly SqlConnection _sqlConnection;
         private bool _isDisposed;

@@ -1,0 +1,325 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.WebApi\\HotelRealtaPayment.WebApi.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Domain\\HotelRealtaPayment.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Domain\\HotelRealtaPayment.Domain.csproj",
+        "projectName": "HotelRealtaPayment.Domain",
+        "projectPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Domain\\HotelRealtaPayment.Domain.csproj",
+        "packagesPath": "C:\\Users\\Code.id\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Code.id\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Persistence\\HotelRealtaPayment.Persistence.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Persistence\\HotelRealtaPayment.Persistence.csproj",
+        "projectName": "HotelRealtaPayment.Persistence",
+        "projectPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Persistence\\HotelRealtaPayment.Persistence.csproj",
+        "packagesPath": "C:\\Users\\Code.id\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Persistence\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Code.id\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Domain\\HotelRealtaPayment.Domain.csproj": {
+                "projectPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Domain\\HotelRealtaPayment.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Services.Abstraction\\HotelRealtaPayment.Services.Abstraction.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Services.Abstraction\\HotelRealtaPayment.Services.Abstraction.csproj",
+        "projectName": "HotelRealtaPayment.Services.Abstraction",
+        "projectPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Services.Abstraction\\HotelRealtaPayment.Services.Abstraction.csproj",
+        "packagesPath": "C:\\Users\\Code.id\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Services.Abstraction\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Code.id\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Services\\HotelRealtaPayment.Services.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Services\\HotelRealtaPayment.Services.csproj",
+        "projectName": "HotelRealtaPayment.Services",
+        "projectPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Services\\HotelRealtaPayment.Services.csproj",
+        "packagesPath": "C:\\Users\\Code.id\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Services\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Code.id\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Services.Abstraction\\HotelRealtaPayment.Services.Abstraction.csproj": {
+                "projectPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Services.Abstraction\\HotelRealtaPayment.Services.Abstraction.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "NLog": {
+              "target": "Package",
+              "version": "[5.1.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.WebApi\\HotelRealtaPayment.WebApi.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.WebApi\\HotelRealtaPayment.WebApi.csproj",
+        "projectName": "HotelRealtaPayment.WebApi",
+        "projectPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.WebApi\\HotelRealtaPayment.WebApi.csproj",
+        "packagesPath": "C:\\Users\\Code.id\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.WebApi\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Code.id\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Domain\\HotelRealtaPayment.Domain.csproj": {
+                "projectPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Domain\\HotelRealtaPayment.Domain.csproj"
+              },
+              "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Persistence\\HotelRealtaPayment.Persistence.csproj": {
+                "projectPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Persistence\\HotelRealtaPayment.Persistence.csproj"
+              },
+              "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Services.Abstraction\\HotelRealtaPayment.Services.Abstraction.csproj": {
+                "projectPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Services.Abstraction\\HotelRealtaPayment.Services.Abstraction.csproj"
+              },
+              "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Services\\HotelRealtaPayment.Services.csproj": {
+                "projectPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Services\\HotelRealtaPayment.Services.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

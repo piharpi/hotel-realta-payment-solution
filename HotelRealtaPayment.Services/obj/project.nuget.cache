@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "cUVubD3txYYcnCiMOn94z0KR2/XGGo/gNdM6xrP5EA4hs3zsbkqpZPyaQw+FyQ6UPwsOo5wNjjgET3UkMSaTTg==",
+  "dgSpecHash": "GgwCLWJQsNTEp3S8U0CC7SyYzlu6cRASEjtr+FqZAsuZYqsRj6Zr4hk8a0ytG/UD8gp2/I6vU7ravgdOBF7XTQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Services\\HotelRealtaPayment.Services.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Code.id\\.nuget\\packages\\nlog\\5.1.1\\nlog.5.1.1.nupkg.sha512"
+  ],
   "logs": []
 }
