@@ -1,8 +1,10 @@
 ﻿using HotelRealtaPayment.Contract.Models;
 using HotelRealtaPayment.Domain.Base;
 using HotelRealtaPayment.Domain.Entities;
+using HotelRealtaPayment.Persistence.RepositoryContext;
 using HotelRealtaPayment.Services.Abstraction;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -107,14 +109,49 @@ namespace HotelRealtaPayment.WebApi.Controllers
 
         // PUT api/<AccountsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] AccountDto accountDto)
         {
+            var account = new Account()
+            {
+                usac_entity_id = id,
+                usac_account_number = accountDto.number,
+                usac_saldo = accountDto.saldo,
+                usac_type = accountDto.type,
+                usac_expmonth = accountDto.expMonth,
+                usac_expyear = accountDto.expYear,
+            };
+
+            var rows = _repoManager.AccountRepository.Edit(account);
+
+            if (rows == 0)
+                return NotFound();
+
+            return CreatedAtRoute("GetAccount", new { id = id },
+            new
+            {
+                status = "success",
+                message = "Edit account successfully.",
+                data = new
+                {
+                    idAccount = id
+                }
+            });
         }
 
         // DELETE api/<AccountsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            var rows = _repoManager.AccountRepository.Remove(id);
+
+            if (rows == 0)
+                return NotFound();
+
+            return Ok(new
+            {
+                status = "success",
+                message = "Delete account successfully.",
+            });
         }
     }
 }

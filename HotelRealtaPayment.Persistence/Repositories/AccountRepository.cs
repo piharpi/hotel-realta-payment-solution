@@ -32,28 +32,20 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
         public int Edit(Account account)
         {
-            SqlCommandModel model = new SqlCommandModel()
-            {
-                CommandText = @"UPDATE Payment.User_Accounts
-                                   SET usac_user_id=@userId,
-                                       usac_account_number=@accountNumber,
+            string query = @"UPDATE Payment.User_Accounts
+                                   SET usac_account_number=@accountNumber,
                                        usac_saldo=@saldo,
                                        usac_type=@type, 
                                        usac_expmonth=@expmonth, 
                                        usac_expyear=@expyear, 
                                        usac_modified_date=@usacModified
-                                 WHERE paga_entity_id= @id;",
-                CommandType = CommandType.Text,
-                CommandParameters = new SqlCommandParameterModel[] {
+                                 WHERE usac_entity_id=@id;";
+
+            var parameters = new SqlCommandParameterModel[] {
                     new SqlCommandParameterModel() {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
                         Value = account.usac_entity_id
-                    },
-                    new SqlCommandParameterModel() {
-                        ParameterName = "@userId",
-                        DataType = DbType.Int32,
-                        Value = account.usac_user_id
                     },
                     new SqlCommandParameterModel() {
                         ParameterName = "@accountNumber",
@@ -71,21 +63,29 @@ namespace HotelRealtaPayment.Persistence.Repositories
                         Value = account.usac_type
                     },
                     new SqlCommandParameterModel() {
-                        ParameterName = "@expmonth",
-                        DataType = DbType.Byte,
-                        Value = account.usac_expmonth
-                    },
-                    new SqlCommandParameterModel() {
-                        ParameterName = "@expyear",
-                        DataType = DbType.Byte,
-                        Value = account.usac_expyear
-                    },
-                    new SqlCommandParameterModel() {
                         ParameterName = "@usacModified",
                         DataType = DbType.DateTime,
                         Value = DateTime.Now
+                    },
+                    new SqlCommandParameterModel()
+                    {
+                        ParameterName = "@expmonth",
+                        DataType = DbType.Byte,
+                        Value = account.usac_expmonth,
+                    },
+                    new SqlCommandParameterModel()
+                    {
+                        ParameterName = "@expyear",
+                        DataType = DbType.Byte,
+                        Value = account.usac_expyear,
                     }
-                }
+                };
+
+            SqlCommandModel model = new SqlCommandModel()
+            {
+                CommandText = query,
+                CommandType = CommandType.Text,
+                CommandParameters = parameters
             };
 
             var rowsAffected = _adoContext.ExecuteNonQueryReturn(model);
@@ -191,7 +191,23 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
         public int Remove(int accountId)
         {
-            throw new NotImplementedException();
+            SqlCommandModel model = new SqlCommandModel()
+            {
+                CommandText = "DELETE FROM Payment.User_Accounts WHERE usac_entity_id=@id;",
+                CommandType = CommandType.Text,
+                CommandParameters = new SqlCommandParameterModel[] {
+                    new SqlCommandParameterModel() {
+                        ParameterName = "@id",
+                        DataType = DbType.Int32,
+                        Value = accountId
+                    }
+                }
+            };
+
+            var rowAffected = _adoContext.ExecuteNonQueryReturn(model);
+            _adoContext.Dispose();
+
+            return rowAffected;
         }
     }
 }

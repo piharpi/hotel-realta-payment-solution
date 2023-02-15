@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 
 namespace HotelRealtaPayment.Persistence.RepositoryContext
 {
@@ -12,5 +7,6 @@ namespace HotelRealtaPayment.Persistence.RepositoryContext
         public string ParameterName { get; set; }
         public DbType DataType { get; set; }
         public dynamic Value { get; set; }
+        public bool IsNullable { get; set; }
     }
 }

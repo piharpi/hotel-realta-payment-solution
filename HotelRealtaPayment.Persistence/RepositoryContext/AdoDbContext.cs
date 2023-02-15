@@ -53,7 +53,8 @@ namespace HotelRealtaPayment.Persistence.RepositoryContext
                 {
                     ParameterName = parameter.ParameterName,
                     DbType = parameter.DataType,
-                    Value = parameter.Value
+                    Value = parameter.Value,
+                    IsNullable = parameter.IsNullable
                 });
             _sqlConnection.Open();
             sqlCommand.ExecuteNonQuery();
@@ -69,7 +70,8 @@ namespace HotelRealtaPayment.Persistence.RepositoryContext
                 {
                     ParameterName = parameter.ParameterName,
                     DbType = parameter.DataType,
-                    Value = parameter.Value
+                    Value = parameter.Value,
+                    IsNullable = parameter.IsNullable
                 });
             _sqlConnection.Open();
 
@@ -89,7 +91,8 @@ namespace HotelRealtaPayment.Persistence.RepositoryContext
                 {
                     ParameterName = parameter.ParameterName,
                     DbType = parameter.DataType,
-                    Value = parameter.Value
+                    Value = parameter.Value,
+                    IsNullable = parameter.IsNullable 
                 });
             _sqlConnection.OpenAsync();
             sqlCommand.ExecuteNonQueryAsync();
@@ -105,7 +108,8 @@ namespace HotelRealtaPayment.Persistence.RepositoryContext
                 {
                     ParameterName = parameter.ParameterName,
                     DbType = parameter.DataType,
-                    Value = parameter.Value
+                    Value = parameter.Value,
+                    IsNullable = parameter.IsNullable
                 });
             _sqlConnection.Open();
             T data = (T)sqlCommand.ExecuteScalar();
@@ -122,7 +126,8 @@ namespace HotelRealtaPayment.Persistence.RepositoryContext
                 {
                     ParameterName = parameter.ParameterName,
                     DbType = parameter.DataType,
-                    Value = parameter.Value
+                    Value = parameter.Value,
+                    IsNullable = parameter.IsNullable 
                 });
             await _sqlConnection.OpenAsync();
             T data = (T)await sqlCommand.ExecuteScalarAsync();
@@ -178,7 +183,8 @@ namespace HotelRealtaPayment.Persistence.RepositoryContext
                 {
                     ParameterName = parameter.ParameterName,
                     DbType = parameter.DataType,
-                    Value = parameter.Value
+                    Value = parameter.Value,
+                    IsNullable = parameter.IsNullable,
                 });
             _sqlConnection.Open();
             SqlDataReader reader = sqlCommand.ExecuteReader();
@@ -220,7 +226,8 @@ namespace HotelRealtaPayment.Persistence.RepositoryContext
                 {
                     ParameterName = parameter.ParameterName,
                     DbType = parameter.DataType,
-                    Value = parameter.Value
+                    Value = parameter.Value,
+                    IsNullable = parameter.IsNullable,
                 });
             await _sqlConnection.OpenAsync();
             SqlDataReader reader = await sqlCommand.ExecuteReaderAsync();
