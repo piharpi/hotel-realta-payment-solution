@@ -116,9 +116,7 @@ namespace HotelRealtaPayment.WebApi.Controllers
                 usac_entity_id = id,
                 usac_account_number = accountDto.number,
                 usac_saldo = accountDto.saldo,
-                usac_type = accountDto.type,
-                usac_expmonth = accountDto.expMonth,
-                usac_expyear = accountDto.expYear,
+                usac_type = accountDto.type
             };
 
             var rows = _repoManager.AccountRepository.Edit(account);

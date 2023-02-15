@@ -3,6 +3,7 @@ using HotelRealtaPayment.Domain.Repositories;
 using HotelRealtaPayment.Persistence.Base;
 using HotelRealtaPayment.Persistence.RepositoryContext;
 using System.Data;
+using System.Runtime.InteropServices;
 
 namespace HotelRealtaPayment.Persistence.Repositories
 {
@@ -35,9 +36,6 @@ namespace HotelRealtaPayment.Persistence.Repositories
             string query = @"UPDATE Payment.User_Accounts
                                    SET usac_account_number=@accountNumber,
                                        usac_saldo=@saldo,
-                                       usac_type=@type, 
-                                       usac_expmonth=@expmonth, 
-                                       usac_expyear=@expyear, 
                                        usac_modified_date=@usacModified
                                  WHERE usac_entity_id=@id;";
 
@@ -58,26 +56,9 @@ namespace HotelRealtaPayment.Persistence.Repositories
                         Value = account.usac_saldo
                     },
                     new SqlCommandParameterModel() {
-                        ParameterName = "@type",
-                        DataType = DbType.String,
-                        Value = account.usac_type
-                    },
-                    new SqlCommandParameterModel() {
                         ParameterName = "@usacModified",
                         DataType = DbType.DateTime,
                         Value = DateTime.Now
-                    },
-                    new SqlCommandParameterModel()
-                    {
-                        ParameterName = "@expmonth",
-                        DataType = DbType.Byte,
-                        Value = account.usac_expmonth,
-                    },
-                    new SqlCommandParameterModel()
-                    {
-                        ParameterName = "@expyear",
-                        DataType = DbType.Byte,
-                        Value = account.usac_expyear,
                     }
                 };
 
@@ -170,13 +151,13 @@ namespace HotelRealtaPayment.Persistence.Repositories
                     },
                     new SqlCommandParameterModel() {
                         ParameterName = "@expmonth",
-                        DataType = DbType.Byte,
-                        Value = account.usac_expmonth
+                        IsNullable = true,
+                        Value = account.usac_expmonth.HasValue ? account.usac_expmonth : DBNull.Value
                     },
                     new SqlCommandParameterModel() {
                         ParameterName = "@expyear",
-                        DataType = DbType.Byte,
-                        Value = account.usac_expyear
+                        IsNullable = true,
+                        Value = account.usac_expyear.HasValue ? account.usac_expyear : DBNull.Value
                     },
                     new SqlCommandParameterModel() {
                         ParameterName = "@usacModified",
