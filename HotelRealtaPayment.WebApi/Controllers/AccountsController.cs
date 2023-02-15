@@ -1,5 +1,6 @@
 ﻿using HotelRealtaPayment.Contract.Models;
 using HotelRealtaPayment.Domain.Base;
+using HotelRealtaPayment.Domain.Entities;
 using HotelRealtaPayment.Services.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,7 +30,7 @@ namespace HotelRealtaPayment.WebApi.Controllers
                .Select(a => new AccountDto
                {
                    number = a.usac_account_number,
-                   entityId = a.usac_entity_id,
+                   codeName = a.code_name,
                    saldo = a.usac_saldo,
                    type = a.usac_type
                });
@@ -45,16 +46,63 @@ namespace HotelRealtaPayment.WebApi.Controllers
         }
 
         // GET api/<AccountsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{id}", Name = "GetAccount")]
+        public IActionResult Get(int id)
         {
-            return "value";
+            var b = _repoManager.AccountRepository.FindAccountById(id);
+
+            if (b == null)
+                return NotFound();
+
+            var accountDto = new AccountDto
+            {
+                number = b.usac_account_number,
+                codeName = b.code_name,
+                saldo = b.usac_saldo,
+                modifiedDate = b.usac_modified_date,
+                type = b.usac_type,
+                expMonth = b.usac_expmonth,
+                expYear = b.usac_expyear,
+            };
+
+            return Ok(new
+            {
+                status = "success",
+                data = new
+                {
+                    account = accountDto
+                }
+            });
         }
 
         // POST api/<AccountsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] AccountDto accountDto)
         {
+            var account = new Account()
+            {
+                usac_user_id = accountDto.userId,
+                usac_account_number = accountDto.number,
+                usac_entity_id = accountDto.entityId,
+                usac_saldo = accountDto.saldo,
+                usac_type = accountDto.type,
+                usac_expmonth = accountDto.expMonth,
+                usac_expyear = accountDto.expYear,
+            };
+
+            var id = _repoManager.AccountRepository.Insert<int>(account);
+
+            return CreatedAtRoute("GetAccount", new { id = id },
+            new
+            {
+                status = "success",
+                message = "Create account successfully.",
+                data = new
+                {
+                    idAccount = id
+                }
+            }
+            );
         }
 
         // PUT api/<AccountsController>/5
