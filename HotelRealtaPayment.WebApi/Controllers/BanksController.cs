@@ -12,8 +12,8 @@ namespace HotelRealtaPayment.WebApi.Controllers
     [ApiController]
     public class BanksController : ControllerBase
     {
-        private IRepositoryManager _repoManager;
-        private ILoggerManager _logger;
+        private readonly IRepositoryManager _repoManager;
+        private readonly ILoggerManager _logger;
 
         public BanksController(IRepositoryManager repoManager, ILoggerManager logger)
         {

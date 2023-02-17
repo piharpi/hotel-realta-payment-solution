@@ -7,5 +7,6 @@ namespace HotelRealtaPayment.Domain.Base
         IBankRepository BankRepository { get; }
         IFintechRepository FintechRepository { get; }
         IAccountRepository AccountRepository { get; }
+        ITransactionRepository TransactionRepository { get; }
     }
 }
