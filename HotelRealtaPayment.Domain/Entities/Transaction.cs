@@ -8,7 +8,7 @@ namespace HotelRealtaPayment.Domain.Entities
     {
         [Key]
         public int patr_id { get; set; }
-        public string patr_trx_number { get; set; }
+        public string? patr_trx_number { get; set; }
         public decimal patr_debet { get; set; }
         public decimal patr_credit { get; set; }
         public string patr_type { get; set; }

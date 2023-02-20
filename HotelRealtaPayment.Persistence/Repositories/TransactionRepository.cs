@@ -91,7 +91,93 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
         public T Insert<T>(Transaction transaction)
         {
-            throw new NotImplementedException();
+            SqlCommandModel model = new SqlCommandModel()
+            {
+                CommandText = @"INSERT INTO [Payment].[payment_transaction]
+                                       ([patr_trx_number]
+                                       ,[patr_debet]
+                                       ,[patr_credit]
+                                       ,[patr_type]
+                                       ,[patr_note]
+                                       ,[patr_modified_date]
+                                       ,[patr_order_number]
+                                       ,[patr_source_id]
+                                       ,[patr_target_id]
+                                       ,[patr_trx_number_ref]
+                                       ,[patr_user_id])
+                                 VALUES
+                                       (CONCAT(@transactionNumber, IDENT_CURRENT('Payment.[payment_transaction]'))
+                                       ,@debet
+                                       ,@credit
+                                       ,@type
+                                       ,@note
+                                       ,GETDATE()
+                                       ,@order_number
+                                       ,@src_id
+                                       ,@trg_id
+                                       ,@order_number_ref
+                                       ,@user_id);",
+                CommandType = CommandType.Text,
+                CommandParameters = new SqlCommandParameterModel[] {
+                    new SqlCommandParameterModel() {
+                        ParameterName = "@transactionNumber",
+                        DataType = DbType.String,
+                        Value = $"{transaction.patr_type}#{DateTime.Now.ToString("yyyyMMdd")}-"
+                    },
+                    new SqlCommandParameterModel()
+                    {
+                        ParameterName = "@credit",
+                        DataType = DbType.Decimal,
+                        Value = transaction.patr_credit
+                    },
+                    new SqlCommandParameterModel()
+                    {
+                        ParameterName = "@debet",
+                        DataType = DbType.Decimal,
+                        Value = transaction.patr_debet
+                    },
+                    new SqlCommandParameterModel()
+                    {
+                        ParameterName = "@type",
+                        DataType = DbType.String,
+                        Value = transaction.patr_type
+                    },
+                    new SqlCommandParameterModel()
+                    {
+                        ParameterName = "@note",
+                        DataType = DbType.String,
+                        Value = transaction.patr_note
+                    },
+                    new SqlCommandParameterModel() {
+                        ParameterName = "@src_id",
+                        DataType = DbType.String,
+                        Value = transaction.patr_source_id
+                    },
+                    new SqlCommandParameterModel() {
+                        ParameterName = "@trg_id",
+                        DataType = DbType.String,
+                        Value = transaction.patr_target_id
+                    },
+                    new SqlCommandParameterModel() {
+                        ParameterName = "@order_number",
+                        DataType = DbType.String,
+                        Value = transaction.patr_order_number
+                    },
+                    new SqlCommandParameterModel() {
+                        ParameterName = "@order_number_ref",
+                        DataType = DbType.String,
+                        IsNullable = true,
+                        Value = transaction.patr_trx_number_ref
+                    },
+                    new SqlCommandParameterModel() {
+                        ParameterName = "@user_id",
+                        DataType = DbType.Int64,
+                        Value = transaction.patr_user_id
+                    }
+                }
+            };
+
+            return Create<T>(model);
         }
 
         public int Remove(int transactionId)

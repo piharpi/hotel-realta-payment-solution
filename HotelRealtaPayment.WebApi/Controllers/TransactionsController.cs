@@ -55,7 +55,7 @@ namespace HotelRealtaPayment.WebApi.Controllers
         }
 
         // GET api/<TransactionsController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetTransaction")]
         public IActionResult Get(int id)
         {
             var t = _repoManager.TransactionRepository.FindTransactionById(id);
@@ -90,8 +90,35 @@ namespace HotelRealtaPayment.WebApi.Controllers
 
         // POST api/<TransactionsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] TransactionDto transactionDto)
         {
+            var transaction = new Transaction()
+            {
+                patr_trx_number = transactionDto.transactionNumber,
+                patr_debet = transactionDto.debet,
+                patr_credit = transactionDto.credit,
+                patr_type = transactionDto.type,
+                patr_note = transactionDto.note,
+                patr_source_id = transactionDto.sourceId,
+                patr_target_id = transactionDto.targetId,
+                patr_order_number = transactionDto.orderNumber,
+                patr_trx_number_ref = transactionDto.transactionRef,
+                patr_user_id = transactionDto.userId
+            };
+
+            var id = _repoManager.TransactionRepository.Insert<int>(transaction);
+
+            return CreatedAtRoute("GetTransaction", new { id = id },
+            new
+            {
+                status = "success",
+                message = "Create transaction successfully.",
+                data = new
+                {
+                    idTransaction = id
+                }
+            }
+            );
         }
 
         // PUT api/<TransactionsController>/5
