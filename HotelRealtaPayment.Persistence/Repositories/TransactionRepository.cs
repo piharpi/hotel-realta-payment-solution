@@ -140,34 +140,35 @@ namespace HotelRealtaPayment.Persistence.Repositories
                     {
                         ParameterName = "@type",
                         DataType = DbType.String,
-                        Value = transaction.patr_type
+                        Value = string.IsNullOrEmpty(transaction.patr_type) ? DBNull.Value : transaction.patr_type
                     },
                     new SqlCommandParameterModel()
                     {
                         ParameterName = "@note",
                         DataType = DbType.String,
-                        Value = transaction.patr_note
+                        Value = string.IsNullOrEmpty(transaction.patr_note) ? DBNull.Value : transaction.patr_note
                     },
                     new SqlCommandParameterModel() {
                         ParameterName = "@src_id",
                         DataType = DbType.String,
-                        Value = transaction.patr_source_id
+                        Value = string.IsNullOrEmpty(transaction.patr_source_id) ? DBNull.Value : transaction.patr_source_id
                     },
                     new SqlCommandParameterModel() {
                         ParameterName = "@trg_id",
                         DataType = DbType.String,
-                        Value = transaction.patr_target_id
+                        Value = string.IsNullOrEmpty(transaction.patr_target_id) ? DBNull.Value : transaction.patr_target_id
                     },
                     new SqlCommandParameterModel() {
                         ParameterName = "@order_number",
                         DataType = DbType.String,
-                        Value = transaction.patr_order_number
+                        IsNullable = true,
+                        Value = string.IsNullOrEmpty(transaction.patr_order_number) ? DBNull.Value : transaction.patr_order_number
                     },
                     new SqlCommandParameterModel() {
                         ParameterName = "@order_number_ref",
                         DataType = DbType.String,
                         IsNullable = true,
-                        Value = transaction.patr_trx_number_ref
+                        Value = string.IsNullOrEmpty(transaction.patr_trx_number_ref) ? DBNull.Value : transaction.patr_trx_number_ref
                     },
                     new SqlCommandParameterModel() {
                         ParameterName = "@user_id",

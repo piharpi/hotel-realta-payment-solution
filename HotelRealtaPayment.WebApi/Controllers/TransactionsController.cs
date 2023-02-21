@@ -102,7 +102,7 @@ namespace HotelRealtaPayment.WebApi.Controllers
                 patr_source_id = transactionDto.sourceId,
                 patr_target_id = transactionDto.targetId,
                 patr_order_number = transactionDto.orderNumber,
-                patr_trx_number_ref = transactionDto.transactionRef,
+                patr_trx_number_ref =transactionDto.transactionRef, 
                 patr_user_id = transactionDto.userId
             };
 

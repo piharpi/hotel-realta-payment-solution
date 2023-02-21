@@ -15,7 +15,7 @@ namespace HotelRealtaPayment.Contract.Models
         public string sourceId { get; set; }
         public string targetId { get; set; }
         public string type { get; set; }
-        public string? transactionRef { get; set; } = "-";
+        public string? transactionRef { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? userName { get; set; }
