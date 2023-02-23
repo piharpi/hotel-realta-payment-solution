@@ -25,6 +25,21 @@ namespace HotelRealtaPayment.Persistence.Base
             _adoContext.Dispose();
         }
 
+        public IEnumerable<T> GetAll<T>(string sql)
+        {
+            var listOfData = _adoContext.ExecuteReader<T>(sql);
+            _adoContext.Dispose();
+
+            var list = new List<T>();
+
+            while(listOfData.MoveNext())
+            {
+                list.Add(listOfData.Current);
+            }
+
+            return list;
+        }
+
         public IEnumerator<T> FindAll<T>(string sql)
         {
             var listOfData = _adoContext.ExecuteReader<T>(sql);

@@ -23,7 +23,7 @@ namespace HotelRealtaPayment.WebApi.Controllers
 
         // GET: api/<BanksController>
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(string? name)
         {
             var b = _repoManager.BankRepository
                 .FindAllBank()
@@ -34,6 +34,9 @@ namespace HotelRealtaPayment.WebApi.Controllers
                     name = b.bank_name,
                 });
 
+            if (!string.IsNullOrEmpty(name))
+                b = b.Where(b => b.name.ToLower().Contains(name));
+            
             return Ok(new {
                 status = "success",
                 data = new
@@ -42,6 +45,29 @@ namespace HotelRealtaPayment.WebApi.Controllers
                 }
             });
         }
+
+        //[HttpGet]
+        //public IActionResult GetByName(string? name)
+        //{
+        //    var b = _repoManager.BankRepository
+        //            .FindAllBank()
+        //            .Where(b => b.bank_name.Contains(name))
+        //            .Select(b => new BankDto
+        //            {
+        //                id = b.bank_entity_id,
+        //                code = b.bank_code,
+        //                name = b.bank_name,
+        //            });
+
+        //    return Ok(new
+        //    {
+        //        status = "success",
+        //        data = new
+        //        {
+        //            banks = b
+        //        }
+        //    });
+        //}
 
         // GET api/<BanksController>/5
         [HttpGet("{id}", Name = "GetBank")]

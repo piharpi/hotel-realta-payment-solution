@@ -23,7 +23,7 @@ namespace HotelRealtaPayment.WebApi.Controllers
 
         // GET: api/<FintechsController>
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(string? name)
         {
             var f = _repoManager.FintechRepository
                 .FindAllFintech()
@@ -33,6 +33,9 @@ namespace HotelRealtaPayment.WebApi.Controllers
                     code = f.paga_code,
                     name = f.paga_name,
                 });
+
+            if (!string.IsNullOrEmpty(name))
+                f = f.Where(b => b.name.ToLower().Contains(name));
 
             return Ok(new
             {

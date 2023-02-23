@@ -16,13 +16,16 @@ namespace HotelRealtaPayment.Persistence.Repositories
         {
             var query = "SELECT bank_entity_id, bank_code, bank_name FROM Payment.Bank";
 
-            IEnumerator<Bank> listOfBank = FindAll<Bank>(query);
+            //IEnumerator<Bank> listOfBank = FindAll<Bank>(query);
 
-            while (listOfBank.MoveNext())
-            {
-                var data = listOfBank.Current;
-                yield return data;
-            }
+            var listOfBank = GetAll<Bank>(query);
+
+            return listOfBank;
+            //while (listOfBank.MoveNext())
+            //{
+            //    var data = listOfBank.Current;
+            //    yield return data;
+            //}
         }
 
         public int Edit(Bank bank)
