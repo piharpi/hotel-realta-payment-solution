@@ -1,7 +1,6 @@
 ﻿using HotelRealtaPayment.Contract.Models;
 using HotelRealtaPayment.Domain.Base;
 using HotelRealtaPayment.Domain.Entities;
-using HotelRealtaPayment.Persistence.Base;
 using HotelRealtaPayment.Services.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 
@@ -90,6 +89,11 @@ namespace HotelRealtaPayment.WebApi.Controllers
 
         // POST api/<TransactionsController>
         [HttpPost]
+        [HttpPost("topup")]
+        [HttpPost("transfer-booking")]
+        [HttpPost("repayment")]
+        [HttpPost("refund")]
+        [HttpPost("order-menu")]
         public IActionResult Post([FromBody] TransactionDto transactionDto)
         {
             var transaction = new Transaction()

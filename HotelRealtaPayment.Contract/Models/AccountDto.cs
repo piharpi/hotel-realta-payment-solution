@@ -25,11 +25,11 @@ namespace HotelRealtaPayment.Contract.Models
         [Required]
         public string type { get; set; }
 
-        //[Range(0, 12)]
+        [Range(0, 12)]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public byte? expMonth { get; set; }
 
-        //[Range(0, 99)]
+        [Range(0, 99)]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public Int16? expYear { get; set; }
 

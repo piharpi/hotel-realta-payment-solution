@@ -9,7 +9,7 @@ namespace HotelRealtaPayment.Contract.Models
 
         [Required]
         [MinLength(3)]
-        [MaxLength(55)]
+        [MaxLength(4)]
         public string code { get; set; }
 
         [Required]

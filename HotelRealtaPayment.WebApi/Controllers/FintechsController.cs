@@ -115,7 +115,7 @@ namespace HotelRealtaPayment.WebApi.Controllers
             }
 
 
-            return CreatedAtRoute("GetFintech", new { id = id },
+            return Ok(
             new
             {
                 status = "success",

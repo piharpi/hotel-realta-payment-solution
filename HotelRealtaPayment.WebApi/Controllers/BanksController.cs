@@ -114,7 +114,7 @@ namespace HotelRealtaPayment.WebApi.Controllers
             }
 
 
-            return CreatedAtRoute("GetBank", new { id = id },
+            return Ok(
             new
             {
                 status = "success",
