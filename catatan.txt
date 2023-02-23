@@ -1,0 +1,13 @@
+1. satu transaksi terdapat 2 catatan : debet dan kredit 
+	debet = adalah penambahan nominal
+	kredit = adalah pengurangan nominal
+
+2. topup : topup account user
+   tranfer booking: membayar booking ke rek hotel realta
+   repayment : pembayaran ulang jika terjadi kekurangan, mencantumkan ref transaksi
+   refund : mengembalikan uang user dengan ketentuan tertentu misal 50%
+   order menu : membayar order menu ke target hotel realta
+   
+   
+   
+3. membuat account hotel realta ada dimockup, memungkinan user membayar menggunakan BANK
