@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace HotelRealtaPayment.Contract.Models
@@ -9,31 +7,40 @@ namespace HotelRealtaPayment.Contract.Models
     {
         [Required]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public int userId { get; set; }
+        [JsonPropertyName("userId")]
+        public int UserId { get; set; }
 
         [Required]
-        public string number { get; set; }
+        [JsonPropertyName("number")]
+        public string Number { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public int entityId { get; set; }
+        [JsonPropertyName("entityId")]
+        public int EntityId { get; set; }
 
-        public string? codeName { get; set; }
+        [JsonPropertyName("codeName")]
+        public string? CodeName { get; set; }
 
         [Required]
-        public decimal saldo { get; set; }
+        [JsonPropertyName("saldo")]
+        public decimal Saldo { get; set; }
 
         [Required]
-        public string type { get; set; }
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
 
         [Range(0, 12)]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public byte? expMonth { get; set; }
+        [JsonPropertyName("expMonth")]
+        public byte? ExpMonth { get; set; }
 
         [Range(0, 99)]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public Int16? expYear { get; set; }
+        [JsonPropertyName("expYear")]
+        public Int16? ExpYear { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public DateTime? modifiedDate { get; set; }
+        [JsonPropertyName("modifiedDate")]
+        public DateTime? ModifiedDate { get; set; }
     }
 }

@@ -1,10 +1,8 @@
 ﻿using HotelRealtaPayment.Contract.Models;
 using HotelRealtaPayment.Domain.Base;
 using HotelRealtaPayment.Domain.Entities;
-using HotelRealtaPayment.Persistence.RepositoryContext;
 using HotelRealtaPayment.Services.Abstraction;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -31,10 +29,10 @@ namespace HotelRealtaPayment.WebApi.Controllers
                .FindAllAccount()
                .Select(a => new AccountDto
                {
-                   number = a.usac_account_number,
-                   codeName = a.code_name,
-                   saldo = a.usac_saldo,
-                   type = a.usac_type
+                   Number = a.UsacAccountNumber,
+                   CodeName = a.CodeName,
+                   Saldo = a.UsacSaldo,
+                   Type = a.UsacType
                });
 
             return Ok(new
@@ -53,28 +51,32 @@ namespace HotelRealtaPayment.WebApi.Controllers
         {
             var b = _repoManager.AccountRepository.FindAccountById(id);
 
-            if (b == null)
-                return NotFound();
-
-            var accountDto = new AccountDto
+            try
             {
-                number = b.usac_account_number,
-                codeName = b.code_name,
-                saldo = b.usac_saldo,
-                modifiedDate = b.usac_modified_date,
-                type = b.usac_type,
-                expMonth = b.usac_expmonth,
-                expYear = b.usac_expyear,
-            };
-
-            return Ok(new
-            {
-                status = "success",
-                data = new
+                var accountDto = new AccountDto
                 {
-                    account = accountDto
-                }
-            });
+                    Number = b.UsacAccountNumber,
+                    CodeName = b.CodeName,
+                    Saldo = b.UsacSaldo,
+                    ModifiedDate = b.UsacModifiedDate,
+                    Type = b.UsacType,
+                    ExpMonth = b.UsacExpmonth,
+                    ExpYear = b.UsacExpyear,
+                };
+
+                return Ok(new
+                {
+                    status = "success",
+                    data = new
+                    {
+                        account = accountDto
+                    }
+                });
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
         // POST api/<AccountsController>
@@ -83,18 +85,18 @@ namespace HotelRealtaPayment.WebApi.Controllers
         {
             var account = new Account()
             {
-                usac_user_id = accountDto.userId,
-                usac_account_number = accountDto.number,
-                usac_entity_id = accountDto.entityId,
-                usac_saldo = accountDto.saldo,
-                usac_type = accountDto.type,
-                usac_expmonth = accountDto.expMonth,
-                usac_expyear = accountDto.expYear,
+                UsacUserId = accountDto.UserId,
+                UsacAccountNumber = accountDto.Number,
+                UsacEntityId = accountDto.EntityId,
+                UsacSaldo = accountDto.Saldo,
+                UsacType = accountDto.Type,
+                UsacExpmonth = accountDto.ExpMonth,
+                UsacExpyear = accountDto.ExpYear,
             };
 
             var id = _repoManager.AccountRepository.Insert<int>(account);
 
-            return CreatedAtRoute("GetAccount", new { id = id },
+            return CreatedAtRoute("GetAccount", new { id },
             new
             {
                 status = "success",
@@ -113,10 +115,10 @@ namespace HotelRealtaPayment.WebApi.Controllers
         {
             var account = new Account()
             {
-                usac_entity_id = id,
-                usac_account_number = accountDto.number,
-                usac_saldo = accountDto.saldo,
-                usac_type = accountDto.type
+                UsacEntityId = id,
+                UsacAccountNumber = accountDto.Number,
+                UsacSaldo = accountDto.Saldo,
+                UsacType = accountDto.Type
             };
 
             var rows = _repoManager.AccountRepository.Edit(account);
@@ -124,7 +126,7 @@ namespace HotelRealtaPayment.WebApi.Controllers
             if (rows == 0)
                 return NotFound();
 
-            return CreatedAtRoute("GetAccount", new { id = id },
+            return CreatedAtRoute("GetAccount", new { id },
             new
             {
                 status = "success",

@@ -8,16 +8,16 @@ namespace HotelRealtaPayment.Domain.Entities
     {
         [Key]
         [ForeignKey("entity")]
-        public int usac_entity_id { get; set; }
+        public int UsacEntityId { get; set; }
 
         [ForeignKey("users")]
-        public int usac_user_id { get; set; }
-        public string? code_name { get; set; }
-        public string usac_account_number { get; set; }
-        public decimal usac_saldo { get; set; }
-        public string usac_type { get; set; }
-        public byte? usac_expmonth { get; set; }
-        public Int16? usac_expyear { get; set; }
-        public DateTime? usac_modified_date { get; set; } = DateTime.Now;
+        public int UsacUserId { get; set; }
+        public string? CodeName { get; set; }
+        public string UsacAccountNumber { get; set; }
+        public decimal UsacSaldo { get; set; }
+        public string UsacType { get; set; }
+        public byte? UsacExpmonth { get; set; }
+        public Int16? UsacExpyear { get; set; }
+        public DateTime? UsacModifiedDate { get; set; } = DateTime.Now;
     }
 }
