@@ -14,58 +14,59 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
         public IEnumerable<Bank> FindAllBank()
         {
-            var query = "SELECT bank_entity_id, bank_code, bank_name FROM Payment.Bank";
+            const string query = @"SELECT bank_entity_id BankEntityId, 
+                                          bank_code BankCode, 
+                                          bank_name BankName
+                                     FROM Payment.Bank";
 
-            //IEnumerator<Bank> listOfBank = FindAll<Bank>(query);
+            var listOfBank = FindAll<Bank>(query);
 
-            var listOfBank = GetAll<Bank>(query);
+            //var listOfBank = GetAll<Bank>(query);
 
-            return listOfBank;
-            //while (listOfBank.MoveNext())
-            //{
-            //    var data = listOfBank.Current;
-            //    yield return data;
-            //}
+            //return listOfBank;
+            while (listOfBank.MoveNext())
+                yield return listOfBank.Current;
         }
 
         public int Edit(Bank bank)
         {
-            SqlCommandModel model = new SqlCommandModel()
+            var model = new SqlCommandModel()
             {
                 CommandText = @"UPDATE Payment.Bank
-                                   SET bank_code=@code, 
-                                       bank_name=@name, 
-                                       bank_modified_date=@date
-                                 WHERE bank_entity_id= @id;",
+                                   SET bank_code = @code, 
+                                       bank_name = @name, 
+                                       bank_modified_date = @date
+                                 WHERE bank_entity_id = @id;",
                 CommandType = CommandType.Text,
                 CommandParameters = new SqlCommandParameterModel[] {
-                    new SqlCommandParameterModel() {
+                    new()
+                    {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
-                        Value = bank.bank_entity_id
+                        Value = bank.BankEntityId
                     },
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@code",
                         DataType = DbType.String,
-                        Value = bank.bank_code
+                        Value = bank.BankCode
                     },
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@name",
                         DataType = DbType.String,
-                        Value = bank.bank_name
+                        Value = bank.BankName
                     },
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@date",
                         DataType = DbType.DateTime,
-                        Value = bank.bank_modified_date
+                        Value = bank.BankModifiedDate
                     }
                 }
             };
 
-            var rowsAffected = _adoContext.ExecuteNonQueryReturn(model);
+            var bankId = _adoContext.ExecuteNonQueryReturn(model);
             _adoContext.Dispose();
 
-            return rowsAffected;
+            return bankId;
         }
 
         public Task<IEnumerable<Bank>> FindAllBankAsync()
@@ -75,14 +76,17 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
         public Bank FindBankById(int bankId)
         {
-            SqlCommandModel model = new SqlCommandModel()
+            var model = new SqlCommandModel()
             {
-                CommandText = @"SELECT bank_entity_id, bank_code, bank_name, bank_modified_date 
+                CommandText = @"SELECT bank_entity_id BankEntityId, 
+                                       bank_code BankCode, 
+                                       bank_name BankName,
+                                       bank_modified_date ModifiedDate
                                   FROM Payment.Bank 
                                  WHERE bank_entity_id = @id;",
                 CommandType = CommandType.Text,
                 CommandParameters = new SqlCommandParameterModel[] {
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
                         Value = bankId
@@ -92,7 +96,7 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
             var listOfBank = FindByCondition<Bank>(model);
 
-            Bank? data = listOfBank.Current;
+            var data = listOfBank.Current;
 
             while (listOfBank.MoveNext())
                 data = listOfBank.Current;
@@ -102,21 +106,21 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
         public T Insert<T>(Bank bank)
         {
-            SqlCommandModel model = new SqlCommandModel()
+            var model = new SqlCommandModel()
             {
                 CommandText = @"INSERT INTO Payment.Bank (bank_code, bank_name)
                                 VALUES (@code, @name);",
                 CommandType = CommandType.Text,
                 CommandParameters = new SqlCommandParameterModel[] {
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@code",
                         DataType = DbType.String,
-                        Value = bank.bank_code
+                        Value = bank.BankCode
                     },
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@name",
                         DataType = DbType.String,
-                        Value = bank.bank_name
+                        Value = bank.BankName
                     }
                 }
             };
@@ -126,12 +130,12 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
         public int Remove(int bankId)
         {
-            SqlCommandModel model = new SqlCommandModel()
+            var model = new SqlCommandModel()
             {
-                CommandText = "DELETE FROM Payment.Bank WHERE bank_entity_id=@id;",
+                CommandText = "DELETE FROM Payment.Bank WHERE bank_entity_id = @id;",
                 CommandType = CommandType.Text,
                 CommandParameters = new SqlCommandParameterModel[] {
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
                         Value = bankId
@@ -139,10 +143,10 @@ namespace HotelRealtaPayment.Persistence.Repositories
                 }
             };
 
-            var rowAffected = _adoContext.ExecuteNonQueryReturn(model);
+            var rowsAffected = _adoContext.ExecuteNonQueryReturn(model);
             _adoContext.Dispose();
 
-            return rowAffected;
+            return rowsAffected;
         }
     }
 }

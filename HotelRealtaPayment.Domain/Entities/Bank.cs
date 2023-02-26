@@ -8,9 +8,9 @@ namespace HotelRealtaPayment.Domain.Entities
     {
         [Key]
         [ForeignKey("entity")]
-        public int bank_entity_id { get; set; }
-        public string bank_code { get; set;}
-        public string bank_name { get; set;}
-        public DateTime bank_modified_date { get; set;} = DateTime.Now;
+        public int BankEntityId { get; set; }
+        public string BankCode { get; set;}
+        public string BankName { get; set;}
+        public DateTime BankModifiedDate { get; set;} = DateTime.Now;
     }
 }

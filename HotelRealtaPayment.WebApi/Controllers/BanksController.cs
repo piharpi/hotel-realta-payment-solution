@@ -29,13 +29,13 @@ namespace HotelRealtaPayment.WebApi.Controllers
                 .FindAllBank()
                 .Select(b => new BankDto
                 {
-                    id = b.bank_entity_id,
-                    code = b.bank_code,
-                    name = b.bank_name,
+                    Id   = b.BankEntityId,
+                    Code = b.BankCode,
+                    Name = b.BankName,
                 });
 
             if (!string.IsNullOrEmpty(name))
-                b = b.Where(b => b.name.ToLower().Contains(name));
+                b = b.Where(bank => bank.Name.ToLower().Contains(name.ToLower()));
             
             return Ok(new {
                 status = "success",
@@ -46,54 +46,35 @@ namespace HotelRealtaPayment.WebApi.Controllers
             });
         }
 
-        //[HttpGet]
-        //public IActionResult GetByName(string? name)
-        //{
-        //    var b = _repoManager.BankRepository
-        //            .FindAllBank()
-        //            .Where(b => b.bank_name.Contains(name))
-        //            .Select(b => new BankDto
-        //            {
-        //                id = b.bank_entity_id,
-        //                code = b.bank_code,
-        //                name = b.bank_name,
-        //            });
-
-        //    return Ok(new
-        //    {
-        //        status = "success",
-        //        data = new
-        //        {
-        //            banks = b
-        //        }
-        //    });
-        //}
-
         // GET api/<BanksController>/5
         [HttpGet("{id}", Name = "GetBank")]
         public IActionResult Get(int id)
         {
             var b = _repoManager.BankRepository.FindBankById(id);
 
-            if (b == null)
-                return NotFound();
-
-            var bankDto = new BankDto
+            try
             {
-                id = b.bank_entity_id,
-                code = b.bank_code,
-                name = b.bank_name,
-                modifiedDate = b.bank_modified_date
-            };
-
-            return Ok(new
-            {
-                status = "success",
-                data = new
+                var bankDto = new BankDto
                 {
-                    bank = bankDto
-                }
-            });
+                    Id = b.BankEntityId,
+                    Code = b.BankCode,
+                    Name = b.BankName,
+                    ModifiedDate = b.BankModifiedDate
+                };
+
+                return Ok(new
+                {
+                    status = "success",
+                    data = new
+                    {
+                        bank = bankDto
+                    }
+                });
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
         // POST api/<BanksController>
@@ -102,13 +83,13 @@ namespace HotelRealtaPayment.WebApi.Controllers
         {
             var bank = new Bank()
             {
-                bank_code = bankDto.code,
-                bank_name = bankDto.name,
+                BankCode = bankDto.Code,
+                BankName = bankDto.Name,
             };
 
             var id = _repoManager.BankRepository.Insert<int>(bank);
 
-            return CreatedAtRoute("GetBank", new { id = id },
+            return CreatedAtRoute("GetBank", new { id },
             new
             {
                 status = "success",
@@ -127,18 +108,15 @@ namespace HotelRealtaPayment.WebApi.Controllers
         {
             var bank = new Bank()
             {
-                bank_entity_id = id,
-                bank_code = bankDto.code,
-                bank_name = bankDto.name,
+                BankEntityId = id,
+                BankCode = bankDto.Code,
+                BankName = bankDto.Name,
             };
 
             var rows = _repoManager.BankRepository.Edit(bank);
 
             if (rows == 0)
-            {
                 return NotFound();
-            }
-
 
             return Ok(
             new
