@@ -14,56 +14,55 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
         public IEnumerable<Fintech> FindAllFintech()
         {
-            var query = @"SELECT paga_entity_id, paga_code, paga_name 
-                            FROM Payment.Payment_Gateway";
+            const string query = @"SELECT paga_entity_id PagaEntityId, 
+                                          paga_code PagaCode, 
+                                          paga_name PagaName 
+                                     FROM Payment.Payment_Gateway";
 
-            IEnumerator<Fintech> listOfFintech = FindAll<Fintech>(query);
+            var listOfFintech = FindAll<Fintech>(query);
 
             while (listOfFintech.MoveNext())
-            {
-                var data = listOfFintech.Current;
-                yield return data;
-            }
+                yield return listOfFintech.Current;
         }
 
         public int Edit(Fintech fintech)
         {
-            SqlCommandModel model = new SqlCommandModel()
+            var model = new SqlCommandModel()
             {
                 CommandText = @"UPDATE Payment.Payment_Gateway
-                                   SET paga_code=@code, 
-                                       paga_name=@name, 
-                                       paga_modified_date=@date
-                                 WHERE paga_entity_id= @id;",
+                                   SET paga_code = @code, 
+                                       paga_name = @name, 
+                                       paga_modified_date = @date
+                                 WHERE paga_entity_id = @id;",
                 CommandType = CommandType.Text,
                 CommandParameters = new SqlCommandParameterModel[] {
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
-                        Value = fintech.paga_entity_id
+                        Value = fintech.PagaEntityId
                     },
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@code",
                         DataType = DbType.String,
-                        Value = fintech.paga_code
+                        Value = fintech.PagaCode
                     },
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@name",
                         DataType = DbType.String,
-                        Value = fintech.paga_name
+                        Value = fintech.PagaName
                     },
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@date",
                         DataType = DbType.DateTime,
-                        Value = fintech.paga_modified_date
+                        Value = fintech.PagaModifiedDate
                     }
                 }
             };
 
-            var rowsAffected = _adoContext.ExecuteNonQueryReturn(model);
+            var idFintech = _adoContext.ExecuteNonQueryReturn(model);
             _adoContext.Dispose();
 
-            return rowsAffected;
+            return idFintech;
         }
 
         public Task<IEnumerable<Fintech>> FindAllFintechAsync()
@@ -73,14 +72,17 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
         public Fintech FindFintechById(int fintechId)
         {
-            SqlCommandModel model = new SqlCommandModel()
+            var model = new SqlCommandModel()
             {
-                CommandText = @"SELECT paga_entity_id, paga_code, paga_name, paga_modified_date 
+                CommandText = @"SELECT paga_entity_id PagaEntityId, 
+                                       paga_code PagaCode,
+                                       paga_name PagaName, 
+                                       paga_modified_date PagaModifiedDate 
                                   FROM Payment.Payment_Gateway 
                                  WHERE paga_entity_id = @id;",
                 CommandType = CommandType.Text,
                 CommandParameters = new SqlCommandParameterModel[] {
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
                         Value = fintechId
@@ -90,7 +92,7 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
             var listOfFintech = FindByCondition<Fintech>(model);
 
-            Fintech? data = listOfFintech.Current;
+            var data = listOfFintech.Current;
 
             while (listOfFintech.MoveNext())
                 data = listOfFintech.Current;
@@ -106,15 +108,15 @@ namespace HotelRealtaPayment.Persistence.Repositories
                                 VALUES (@code, @name);",
                 CommandType = CommandType.Text,
                 CommandParameters = new SqlCommandParameterModel[] {
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@code",
                         DataType = DbType.String,
-                        Value = fintech.paga_code
+                        Value = fintech.PagaCode
                     },
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@name",
                         DataType = DbType.String,
-                        Value = fintech.paga_name
+                        Value = fintech.PagaName
                     }
                 }
             };
@@ -130,7 +132,7 @@ namespace HotelRealtaPayment.Persistence.Repositories
                                  WHERE paga_entity_id=@id;",
                 CommandType = CommandType.Text,
                 CommandParameters = new SqlCommandParameterModel[] {
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
                         Value = fintechId

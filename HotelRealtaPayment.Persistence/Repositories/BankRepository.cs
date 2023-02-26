@@ -81,7 +81,7 @@ namespace HotelRealtaPayment.Persistence.Repositories
                 CommandText = @"SELECT bank_entity_id BankEntityId, 
                                        bank_code BankCode, 
                                        bank_name BankName,
-                                       bank_modified_date ModifiedDate
+                                       bank_modified_date BankModifiedDate
                                   FROM Payment.Bank 
                                  WHERE bank_entity_id = @id;",
                 CommandType = CommandType.Text,

@@ -8,9 +8,9 @@ namespace HotelRealtaPayment.Domain.Entities
     {
         [Key]
         [ForeignKey("entity")]
-        public int paga_entity_id { get; set; }
-        public string paga_code { get; set;}
-        public string paga_name { get; set;}
-        public DateTime paga_modified_date { get; set;} = DateTime.Now;
+        public int PagaEntityId { get; set; }
+        public string PagaCode { get; set;}
+        public string PagaName { get; set;}
+        public DateTime PagaModifiedDate { get; set;} = DateTime.Now;
     }
 }
