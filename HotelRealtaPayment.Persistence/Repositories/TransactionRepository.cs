@@ -19,22 +19,22 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
         public IEnumerable<Transaction> FindAllTransaction()
         {
-            var query = @"SELECT patr_trx_number PatrTrxNumber, 
-				                 patr_modified_date PatrModifiedDate,
-				                 patr_debet PatrDebet,
-				                 patr_credit PatrCredit,
-				                 patr_note PatrNote,
-				                 patr_order_number PatrOrderNumber,
-				                 patr_source_id PatrSourceId,
-				                 patr_target_id PatrTargetId,
-				                 patr_trx_number_ref PatrTrxNumberRef,
-				                 patr_type PatrType,
-				                 us.user_full_name UserFullName
-		                    FROM Payment.payment_transaction patr
-                       LEFT JOIN Users.users us
-			                  ON us.user_id = patr.patr_user_id";
+            const string query = @"SELECT patr_trx_number PatrTrxNumber, 
+				                         patr_modified_date PatrModifiedDate,
+				                         patr_debet PatrDebet,
+				                         patr_credit PatrCredit,
+				                         patr_note PatrNote,
+				                         patr_order_number PatrOrderNumber,
+				                         patr_source_id PatrSourceId,
+				                         patr_target_id PatrTargetId,
+				                         patr_trx_number_ref PatrTrxNumberRef,
+				                         patr_type PatrType,
+				                         us.user_full_name UserFullName
+		                            FROM Payment.payment_transaction patr
+                               LEFT JOIN Users.users us
+			                          ON us.user_id = patr.patr_user_id";
 
-            IEnumerator<Transaction> listOfTransaction = FindAll<Transaction>(query);
+            var listOfTransaction = FindAll<Transaction>(query);
 
             while (listOfTransaction.MoveNext())
                 yield return listOfTransaction.Current;
@@ -47,28 +47,28 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
         public Transaction FindTransactionById(int transactionId)
         {
-            var query = @"SELECT patr_trx_number, 
-				                 patr_modified_date,
-				                 patr_debet,
-				                 patr_credit,
-				                 patr_note,
-				                 patr_order_number,
-				                 patr_source_id,
-				                 patr_target_id,
-				                 patr_trx_number_ref,
-				                 patr_type,
-				                 us.user_full_name
-		                    FROM Payment.payment_transaction patr
-                       LEFT JOIN Users.users us
-			                  ON us.user_id = patr.patr_user_id
-                           WHERE patr.patr_id=@id;";
+            const string query = @"SELECT patr_trx_number PatrTrxNumber, 
+				                         patr_modified_date PatrModifiedDate,
+				                         patr_debet PatrDebet,
+				                         patr_credit PatrCredit,
+				                         patr_note PatrNote,
+				                         patr_order_number PatrOrderNumber,
+				                         patr_source_id PatrSourceId,
+				                         patr_target_id PatrTargetId,
+				                         patr_trx_number_ref PatrTrxNumberRef,
+				                         patr_type PatrType,
+				                         us.user_full_name UserFullName
+		                            FROM Payment.payment_transaction patr
+                               LEFT JOIN Users.users us
+			                          ON us.user_id = patr.patr_user_id
+                                   WHERE patr.patr_id=@id;";
 
-            SqlCommandModel model = new SqlCommandModel()
+            var model = new SqlCommandModel()
             {
                 CommandText = query,
                 CommandType = CommandType.Text,
                 CommandParameters = new SqlCommandParameterModel[] {
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
                         Value = transactionId
@@ -78,7 +78,7 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
             var listOfTransaction = FindByCondition<Transaction>(model);
 
-            Transaction? data = listOfTransaction.Current;
+            var data = listOfTransaction.Current;
 
             while (listOfTransaction.MoveNext())
                 data = listOfTransaction.Current;
@@ -88,7 +88,7 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
         public T Insert<T>(Transaction transaction)
         {
-            SqlCommandModel model = new SqlCommandModel()
+            var model = new SqlCommandModel()
             {
                 CommandText = @"INSERT INTO [Payment].[payment_transaction]
                                        ([patr_trx_number]
@@ -116,58 +116,58 @@ namespace HotelRealtaPayment.Persistence.Repositories
                                        ,@user_id);",
                 CommandType = CommandType.Text,
                 CommandParameters = new SqlCommandParameterModel[] {
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@transactionNumber",
                         DataType = DbType.String,
                         Value = $"{transaction.PatrType}#{DateTime.Now.ToString("yyyyMMdd")}-"
                     },
-                    new SqlCommandParameterModel()
+                    new()
                     {
                         ParameterName = "@credit",
                         DataType = DbType.Decimal,
                         Value = transaction.PatrCredit
                     },
-                    new SqlCommandParameterModel()
+                    new()
                     {
                         ParameterName = "@debet",
                         DataType = DbType.Decimal,
                         Value = transaction.PatrDebet
                     },
-                    new SqlCommandParameterModel()
+                    new()
                     {
                         ParameterName = "@type",
                         DataType = DbType.String,
                         Value = string.IsNullOrEmpty(transaction.PatrType) ? DBNull.Value : transaction.PatrType
                     },
-                    new SqlCommandParameterModel()
+                    new()
                     {
                         ParameterName = "@note",
                         DataType = DbType.String,
                         Value = string.IsNullOrEmpty(transaction.PatrNote) ? DBNull.Value : transaction.PatrNote
                     },
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@src_id",
                         DataType = DbType.String,
                         Value = string.IsNullOrEmpty(transaction.PatrSourceId) ? DBNull.Value : transaction.PatrSourceId
                     },
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@trg_id",
                         DataType = DbType.String,
                         Value = string.IsNullOrEmpty(transaction.PatrTargetId) ? DBNull.Value : transaction.PatrTargetId
                     },
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@order_number",
                         DataType = DbType.String,
                         IsNullable = true,
                         Value = string.IsNullOrEmpty(transaction.PatrOrderNumber) ? DBNull.Value : transaction.PatrOrderNumber
                     },
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@order_number_ref",
                         DataType = DbType.String,
                         IsNullable = true,
                         Value = string.IsNullOrEmpty(transaction.PatrTrxNumberRef) ? DBNull.Value : transaction.PatrTrxNumberRef
                     },
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@user_id",
                         DataType = DbType.Int64,
                         Value = transaction.PatrUserId
@@ -180,13 +180,13 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
         public int Remove(int transactionId)
         {
-            SqlCommandModel model = new SqlCommandModel()
+            var model = new SqlCommandModel()
             {
                 CommandText = @"DELETE FROM Payment.Payment_Transaction
                                  WHERE patr_id=@id;",
                 CommandType = CommandType.Text,
                 CommandParameters = new SqlCommandParameterModel[] {
-                    new SqlCommandParameterModel() {
+                    new() {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
                         Value = transactionId
