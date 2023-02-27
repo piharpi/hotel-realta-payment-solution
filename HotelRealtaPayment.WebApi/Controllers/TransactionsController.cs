@@ -30,17 +30,17 @@ namespace HotelRealtaPayment.WebApi.Controllers
                     .FindAllTransaction()
                     .Select(t => new TransactionDto()
                     {
-                        transactionNumber = t.patr_trx_number,
-                        modifiedDate = t.patr_modified_date,
-                        debet = t.patr_debet,
-                        credit = t.patr_credit,
-                        note = t.patr_note,
-                        orderNumber = t.patr_order_number,
-                        sourceId = t.patr_source_id,
-                        targetId = t.patr_target_id,
-                        transactionRef = t.patr_trx_number_ref,
-                        type = t.patr_type,
-                        userName = t.user_full_name
+                        TransactionNumber = t.PatrTrxNumber,
+                        ModifiedDate = t.PatrModifiedDate,
+                        Debet = t.PatrDebet,
+                        Credit = t.PatrCredit,
+                        Note = t.PatrNote,
+                        OrderNumber = t.PatrOrderNumber,
+                        SourceId = t.PatrSourceId,
+                        TargetId = t.PatrTargetId,
+                        TransactionRef = t.PatrTrxNumberRef,
+                        Type = t.PatrType,
+                        UserName = t.UserFullName
                     });
 
             return Ok(new
@@ -64,17 +64,17 @@ namespace HotelRealtaPayment.WebApi.Controllers
 
             var transactionDto = new TransactionDto
             {
-                transactionNumber = t.patr_trx_number,
-                modifiedDate = t.patr_modified_date,
-                debet = t.patr_debet,
-                credit = t.patr_credit,
-                note = t.patr_note,
-                orderNumber = t.patr_order_number,
-                sourceId = t.patr_source_id,
-                targetId = t.patr_target_id,
-                transactionRef = t.patr_trx_number_ref,
-                type = t.patr_type,
-                userName = t.user_full_name
+                TransactionNumber = t.PatrTrxNumber,
+                ModifiedDate = t.PatrModifiedDate,
+                Debet = t.PatrDebet,
+                Credit = t.PatrCredit,
+                Note = t.PatrNote,
+                OrderNumber = t.PatrOrderNumber,
+                SourceId = t.PatrSourceId,
+                TargetId = t.PatrTargetId,
+                TransactionRef = t.PatrTrxNumberRef,
+                Type = t.PatrType,
+                UserName = t.UserFullName
             };
 
             return Ok(new
@@ -98,16 +98,16 @@ namespace HotelRealtaPayment.WebApi.Controllers
         {
             var transaction = new Transaction()
             {
-                patr_trx_number = transactionDto.transactionNumber,
-                patr_debet = transactionDto.debet,
-                patr_credit = transactionDto.credit,
-                patr_type = transactionDto.type,
-                patr_note = transactionDto.note,
-                patr_source_id = transactionDto.sourceId,
-                patr_target_id = transactionDto.targetId,
-                patr_order_number = transactionDto.orderNumber,
-                patr_trx_number_ref =transactionDto.transactionRef, 
-                patr_user_id = transactionDto.userId
+                PatrTrxNumber = transactionDto.TransactionNumber,
+                PatrDebet = transactionDto.Debet,
+                PatrCredit = transactionDto.Credit,
+                PatrType = transactionDto.Type,
+                PatrNote = transactionDto.Note,
+                PatrSourceId = transactionDto.SourceId,
+                PatrTargetId = transactionDto.TargetId,
+                PatrOrderNumber = transactionDto.OrderNumber,
+                PatrTrxNumberRef =transactionDto.TransactionRef, 
+                PatrUserId = transactionDto.UserId
             };
 
             var id = _repoManager.TransactionRepository.Insert<int>(transaction);

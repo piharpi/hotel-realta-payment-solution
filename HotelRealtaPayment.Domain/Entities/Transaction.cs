@@ -7,21 +7,21 @@ namespace HotelRealtaPayment.Domain.Entities
     public class Transaction
     {
         [Key]
-        public int patr_id { get; set; }
-        public string? patr_trx_number { get; set; }
-        public decimal patr_debet { get; set; }
-        public decimal patr_credit { get; set; }
-        public string patr_type { get; set; }
-        public string patr_note { get; set; }
-        public DateTime patr_modified_date { get; set; }
-        public string patr_order_number { get; set; }
-        public string patr_source_id { get; set; }
-        public string patr_target_id { get; set; }
-        public string? patr_trx_number_ref { get; set; }
+        public int PatrId { get; set; }
+        public string? PatrTrxNumber { get; set; }
+        public decimal PatrDebet { get; set; }
+        public decimal PatrCredit { get; set; }
+        public string PatrType { get; set; }
+        public string PatrNote { get; set; }
+        public DateTime PatrModifiedDate { get; set; }
+        public string PatrOrderNumber { get; set; }
+        public string PatrSourceId { get; set; }
+        public string PatrTargetId { get; set; }
+        public string? PatrTrxNumberRef { get; set; }
 
         [ForeignKey("users")]
-        public int patr_user_id { get; set; }
+        public int PatrUserId { get; set; }
 
-        public string user_full_name { get; set; }
+        public string UserFullName { get; set; }
     }
 }

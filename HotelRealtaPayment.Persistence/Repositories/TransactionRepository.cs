@@ -19,17 +19,17 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
         public IEnumerable<Transaction> FindAllTransaction()
         {
-            var query = @"SELECT patr_trx_number, 
-				                 patr_modified_date,
-				                 patr_debet,
-				                 patr_credit,
-				                 patr_note,
-				                 patr_order_number,
-				                 patr_source_id,
-				                 patr_target_id,
-				                 patr_trx_number_ref,
-				                 patr_type,
-				                 us.user_full_name
+            var query = @"SELECT patr_trx_number PatrTrxNumber, 
+				                 patr_modified_date PatrModifiedDate,
+				                 patr_debet PatrDebet,
+				                 patr_credit PatrCredit,
+				                 patr_note PatrNote,
+				                 patr_order_number PatrOrderNumber,
+				                 patr_source_id PatrSourceId,
+				                 patr_target_id PatrTargetId,
+				                 patr_trx_number_ref PatrTrxNumberRef,
+				                 patr_type PatrType,
+				                 us.user_full_name UserFullName
 		                    FROM Payment.payment_transaction patr
                        LEFT JOIN Users.users us
 			                  ON us.user_id = patr.patr_user_id";
@@ -37,10 +37,7 @@ namespace HotelRealtaPayment.Persistence.Repositories
             IEnumerator<Transaction> listOfTransaction = FindAll<Transaction>(query);
 
             while (listOfTransaction.MoveNext())
-            {
-                var data = listOfTransaction.Current;
-                yield return data;
-            }
+                yield return listOfTransaction.Current;
         }
 
         public Task<IEnumerable<Transaction>> FindAllTransactionAsync()
@@ -122,58 +119,58 @@ namespace HotelRealtaPayment.Persistence.Repositories
                     new SqlCommandParameterModel() {
                         ParameterName = "@transactionNumber",
                         DataType = DbType.String,
-                        Value = $"{transaction.patr_type}#{DateTime.Now.ToString("yyyyMMdd")}-"
+                        Value = $"{transaction.PatrType}#{DateTime.Now.ToString("yyyyMMdd")}-"
                     },
                     new SqlCommandParameterModel()
                     {
                         ParameterName = "@credit",
                         DataType = DbType.Decimal,
-                        Value = transaction.patr_credit
+                        Value = transaction.PatrCredit
                     },
                     new SqlCommandParameterModel()
                     {
                         ParameterName = "@debet",
                         DataType = DbType.Decimal,
-                        Value = transaction.patr_debet
+                        Value = transaction.PatrDebet
                     },
                     new SqlCommandParameterModel()
                     {
                         ParameterName = "@type",
                         DataType = DbType.String,
-                        Value = string.IsNullOrEmpty(transaction.patr_type) ? DBNull.Value : transaction.patr_type
+                        Value = string.IsNullOrEmpty(transaction.PatrType) ? DBNull.Value : transaction.PatrType
                     },
                     new SqlCommandParameterModel()
                     {
                         ParameterName = "@note",
                         DataType = DbType.String,
-                        Value = string.IsNullOrEmpty(transaction.patr_note) ? DBNull.Value : transaction.patr_note
+                        Value = string.IsNullOrEmpty(transaction.PatrNote) ? DBNull.Value : transaction.PatrNote
                     },
                     new SqlCommandParameterModel() {
                         ParameterName = "@src_id",
                         DataType = DbType.String,
-                        Value = string.IsNullOrEmpty(transaction.patr_source_id) ? DBNull.Value : transaction.patr_source_id
+                        Value = string.IsNullOrEmpty(transaction.PatrSourceId) ? DBNull.Value : transaction.PatrSourceId
                     },
                     new SqlCommandParameterModel() {
                         ParameterName = "@trg_id",
                         DataType = DbType.String,
-                        Value = string.IsNullOrEmpty(transaction.patr_target_id) ? DBNull.Value : transaction.patr_target_id
+                        Value = string.IsNullOrEmpty(transaction.PatrTargetId) ? DBNull.Value : transaction.PatrTargetId
                     },
                     new SqlCommandParameterModel() {
                         ParameterName = "@order_number",
                         DataType = DbType.String,
                         IsNullable = true,
-                        Value = string.IsNullOrEmpty(transaction.patr_order_number) ? DBNull.Value : transaction.patr_order_number
+                        Value = string.IsNullOrEmpty(transaction.PatrOrderNumber) ? DBNull.Value : transaction.PatrOrderNumber
                     },
                     new SqlCommandParameterModel() {
                         ParameterName = "@order_number_ref",
                         DataType = DbType.String,
                         IsNullable = true,
-                        Value = string.IsNullOrEmpty(transaction.patr_trx_number_ref) ? DBNull.Value : transaction.patr_trx_number_ref
+                        Value = string.IsNullOrEmpty(transaction.PatrTrxNumberRef) ? DBNull.Value : transaction.PatrTrxNumberRef
                     },
                     new SqlCommandParameterModel() {
                         ParameterName = "@user_id",
                         DataType = DbType.Int64,
-                        Value = transaction.patr_user_id
+                        Value = transaction.PatrUserId
                     }
                 }
             };
