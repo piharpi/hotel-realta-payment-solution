@@ -29,9 +29,9 @@ namespace HotelRealtaPayment.WebApi.Controllers
                 .FindAllBank()
                 .Select(b => new BankDto
                 {
-                    Id   = b.BankEntityId,
-                    Code = b.BankCode,
-                    Name = b.BankName,
+                    Id   = b.Id,
+                    Code = b.Code,
+                    Name = b.Name
                 });
 
             if (!string.IsNullOrEmpty(name))
@@ -56,10 +56,10 @@ namespace HotelRealtaPayment.WebApi.Controllers
             {
                 var bankDto = new BankDto
                 {
-                    Id = b.BankEntityId,
-                    Code = b.BankCode,
-                    Name = b.BankName,
-                    ModifiedDate = b.BankModifiedDate
+                    Id = b.Id,
+                    Code = b.Code,
+                    Name = b.Name,
+                    ModifiedDate = b.ModifiedDate
                 };
 
                 return Ok(new
@@ -83,8 +83,8 @@ namespace HotelRealtaPayment.WebApi.Controllers
         {
             var bank = new Bank()
             {
-                BankCode = bankDto.Code,
-                BankName = bankDto.Name,
+                Code = bankDto.Code,
+                Name = bankDto.Name,
             };
 
             var id = _repoManager.BankRepository.Insert<int>(bank);
@@ -108,9 +108,9 @@ namespace HotelRealtaPayment.WebApi.Controllers
         {
             var bank = new Bank()
             {
-                BankEntityId = id,
-                BankCode = bankDto.Code,
-                BankName = bankDto.Name,
+                Id = id,
+                Code = bankDto.Code,
+                Name = bankDto.Name,
             };
 
             var rows = _repoManager.BankRepository.Edit(bank);

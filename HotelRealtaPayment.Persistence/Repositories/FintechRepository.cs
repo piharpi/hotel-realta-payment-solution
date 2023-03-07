@@ -14,9 +14,9 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
         public IEnumerable<Fintech> FindAllFintech()
         {
-            const string query = @"SELECT paga_entity_id PagaEntityId, 
-                                          paga_code PagaCode, 
-                                          paga_name PagaName 
+            const string query = @"SELECT paga_entity_id Id, 
+                                          paga_code Code, 
+                                          paga_name Name 
                                      FROM Payment.Payment_Gateway";
 
             var listOfFintech = FindAll<Fintech>(query);
@@ -39,22 +39,22 @@ namespace HotelRealtaPayment.Persistence.Repositories
                     new() {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
-                        Value = fintech.PagaEntityId
+                        Value = fintech.Id
                     },
                     new() {
                         ParameterName = "@code",
                         DataType = DbType.String,
-                        Value = fintech.PagaCode
+                        Value = fintech.Code
                     },
                     new() {
                         ParameterName = "@name",
                         DataType = DbType.String,
-                        Value = fintech.PagaName
+                        Value = fintech.Name
                     },
                     new() {
                         ParameterName = "@date",
                         DataType = DbType.DateTime,
-                        Value = fintech.PagaModifiedDate
+                        Value = fintech.ModifiedDate
                     }
                 }
             };
@@ -74,10 +74,10 @@ namespace HotelRealtaPayment.Persistence.Repositories
         {
             var model = new SqlCommandModel()
             {
-                CommandText = @"SELECT paga_entity_id PagaEntityId, 
-                                       paga_code PagaCode,
-                                       paga_name PagaName, 
-                                       paga_modified_date PagaModifiedDate 
+                CommandText = @"SELECT paga_entity_id Id, 
+                                       paga_code Code,
+                                       paga_name Name, 
+                                       paga_modified_date ModifiedDate 
                                   FROM Payment.Payment_Gateway 
                                  WHERE paga_entity_id = @id;",
                 CommandType = CommandType.Text,
@@ -111,12 +111,12 @@ namespace HotelRealtaPayment.Persistence.Repositories
                     new() {
                         ParameterName = "@code",
                         DataType = DbType.String,
-                        Value = fintech.PagaCode
+                        Value = fintech.Code
                     },
                     new() {
                         ParameterName = "@name",
                         DataType = DbType.String,
-                        Value = fintech.PagaName
+                        Value = fintech.Name
                     }
                 }
             };

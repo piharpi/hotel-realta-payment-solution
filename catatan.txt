@@ -12,8 +12,6 @@
    
 3. membuat account hotel realta ada dimockup, memungkinan user membayar menggunakan BANK
 
-4. mengubah entity property menjadi PascalCase
-
-5. ubah dto jadi struct 
-
 6. fitur searching masing-masing entity
+
+7. refactoring sepertinya tidak perlu menggunakan dto setiap ingin dikembalikan ke user

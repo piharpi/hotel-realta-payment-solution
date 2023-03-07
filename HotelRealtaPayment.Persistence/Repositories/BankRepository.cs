@@ -14,9 +14,9 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
         public IEnumerable<Bank> FindAllBank()
         {
-            const string query = @"SELECT bank_entity_id BankEntityId, 
-                                          bank_code BankCode, 
-                                          bank_name BankName
+            const string query = @"SELECT bank_entity_id Id, 
+                                          bank_code Code, 
+                                          bank_name Name
                                      FROM Payment.Bank";
 
             var listOfBank = FindAll<Bank>(query);
@@ -43,22 +43,22 @@ namespace HotelRealtaPayment.Persistence.Repositories
                     {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
-                        Value = bank.BankEntityId
+                        Value = bank.Id
                     },
                     new() {
                         ParameterName = "@code",
                         DataType = DbType.String,
-                        Value = bank.BankCode
+                        Value = bank.Code
                     },
                     new() {
                         ParameterName = "@name",
                         DataType = DbType.String,
-                        Value = bank.BankName
+                        Value = bank.Name
                     },
                     new() {
                         ParameterName = "@date",
                         DataType = DbType.DateTime,
-                        Value = bank.BankModifiedDate
+                        Value = bank.ModifiedDate
                     }
                 }
             };
@@ -78,10 +78,10 @@ namespace HotelRealtaPayment.Persistence.Repositories
         {
             var model = new SqlCommandModel()
             {
-                CommandText = @"SELECT bank_entity_id BankEntityId, 
-                                       bank_code BankCode, 
-                                       bank_name BankName,
-                                       bank_modified_date BankModifiedDate
+                CommandText = @"SELECT bank_entity_id Id, 
+                                       bank_code Code, 
+                                       bank_name Name,
+                                       bank_modified_date ModifiedDate
                                   FROM Payment.Bank 
                                  WHERE bank_entity_id = @id;",
                 CommandType = CommandType.Text,
@@ -115,12 +115,12 @@ namespace HotelRealtaPayment.Persistence.Repositories
                     new() {
                         ParameterName = "@code",
                         DataType = DbType.String,
-                        Value = bank.BankCode
+                        Value = bank.Code
                     },
                     new() {
                         ParameterName = "@name",
                         DataType = DbType.String,
-                        Value = bank.BankName
+                        Value = bank.Name
                     }
                 }
             };

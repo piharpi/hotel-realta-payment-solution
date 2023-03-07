@@ -29,9 +29,9 @@ namespace HotelRealtaPayment.WebApi.Controllers
                 .FindAllFintech()
                 .Select(f => new FintechDto
                 {
-                    Id = f.PagaEntityId,
-                    Code = f.PagaCode,
-                    Name = f.PagaName,
+                    Id = f.Id,
+                    Code = f.Code,
+                    Name = f.Name,
                 });
 
             if (!string.IsNullOrEmpty(name))
@@ -57,10 +57,10 @@ namespace HotelRealtaPayment.WebApi.Controllers
             {
                 var fintechDto = new FintechDto
                 {
-                    Id = b.PagaEntityId,
-                    Code = b.PagaCode,
-                    Name = b.PagaName,
-                    ModifiedDate = b.PagaModifiedDate
+                    Id = b.Id,
+                    Code = b.Code,
+                    Name = b.Name,
+                    ModifiedDate = b.ModifiedDate
                 };
 
                 return Ok(new
@@ -84,8 +84,8 @@ namespace HotelRealtaPayment.WebApi.Controllers
         {
             var fintech = new Fintech()
             {
-                PagaCode = fintechDto.Code,
-                PagaName = fintechDto.Name,
+                Code = fintechDto.Code,
+                Name = fintechDto.Name,
             };
 
             var id = _repoManager.FintechRepository.Insert<int>(fintech);
@@ -109,9 +109,9 @@ namespace HotelRealtaPayment.WebApi.Controllers
         {
             var fintech = new Fintech()
             {
-                PagaEntityId = id,
-                PagaCode = fintechDto.Code,
-                PagaName = fintechDto.Name,
+                Id = id,
+                Code = fintechDto.Code,
+                Name = fintechDto.Name,
             };
 
             var rows = _repoManager.FintechRepository.Edit(fintech);
