@@ -12,13 +12,13 @@ namespace HotelRealtaPayment.Contract.Models
         [MinLength(3)]
         [MaxLength(55)]
         [JsonPropertyName("code")]
-        public string Code { get; set; }
+        public string? Code { get; set; }
 
         [Required]
         [MinLength(3)]
         [MaxLength(55)]
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("modifiedDate")]

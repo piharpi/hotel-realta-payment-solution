@@ -16,7 +16,7 @@ namespace HotelRealtaPayment.Contract.Models
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         [JsonPropertyName("entityId")]
-        public int EntityId { get; set; }
+        public int Id { get; set; }
 
         [JsonPropertyName("codeName")]
         public string? CodeName { get; set; }

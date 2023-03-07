@@ -29,10 +29,10 @@ namespace HotelRealtaPayment.WebApi.Controllers
                .FindAllAccount()
                .Select(a => new AccountDto
                {
-                   Number = a.UsacAccountNumber,
+                   Number = a.AccountNumber,
                    CodeName = a.CodeName,
-                   Saldo = a.UsacSaldo,
-                   Type = a.UsacType
+                   Saldo = a.Saldo,
+                   Type = a.Type
                });
 
             return Ok(new
@@ -55,13 +55,13 @@ namespace HotelRealtaPayment.WebApi.Controllers
             {
                 var accountDto = new AccountDto
                 {
-                    Number = b.UsacAccountNumber,
+                    Number = b.AccountNumber,
                     CodeName = b.CodeName,
-                    Saldo = b.UsacSaldo,
-                    ModifiedDate = b.UsacModifiedDate,
-                    Type = b.UsacType,
-                    ExpMonth = b.UsacExpmonth,
-                    ExpYear = b.UsacExpyear,
+                    Saldo = b.Saldo,
+                    ModifiedDate = b.ModifiedDate,
+                    Type = b.Type,
+                    ExpMonth = b.Expmonth,
+                    ExpYear = b.Expyear,
                 };
 
                 return Ok(new
@@ -85,13 +85,13 @@ namespace HotelRealtaPayment.WebApi.Controllers
         {
             var account = new Account()
             {
-                UsacUserId = accountDto.UserId,
-                UsacAccountNumber = accountDto.Number,
-                UsacEntityId = accountDto.EntityId,
-                UsacSaldo = accountDto.Saldo,
-                UsacType = accountDto.Type,
-                UsacExpmonth = accountDto.ExpMonth,
-                UsacExpyear = accountDto.ExpYear,
+                UserId = accountDto.UserId,
+                AccountNumber = accountDto.Number,
+                Id = accountDto.Id,
+                Saldo = accountDto.Saldo,
+                Type = accountDto.Type,
+                Expmonth = accountDto.ExpMonth,
+                Expyear = accountDto.ExpYear,
             };
 
             var id = _repoManager.AccountRepository.Insert<int>(account);
@@ -115,10 +115,10 @@ namespace HotelRealtaPayment.WebApi.Controllers
         {
             var account = new Account()
             {
-                UsacEntityId = id,
-                UsacAccountNumber = accountDto.Number,
-                UsacSaldo = accountDto.Saldo,
-                UsacType = accountDto.Type
+                Id = id,
+                AccountNumber = accountDto.Number,
+                Saldo = accountDto.Saldo,
+                Type = accountDto.Type
             };
 
             var rows = _repoManager.AccountRepository.Edit(account);

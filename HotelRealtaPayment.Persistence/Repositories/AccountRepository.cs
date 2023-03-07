@@ -13,9 +13,9 @@ namespace HotelRealtaPayment.Persistence.Repositories
         }
         public IEnumerable<Account> FindAllAccount()
         {
-            const string query = @"SELECT usac_account_number UsacAccountNumber, 
+            const string query = @"SELECT usac_account_number AccountNumber, 
 			                     CONCAT(ba.bank_name, pg.paga_code) as CodeName,
-			                     usac_saldo UsacSaldo, usac_type UsacType
+			                     usac_saldo Saldo, usac_type Type
                             FROM Payment.User_Accounts ua
                        LEFT JOIN Payment.entity en ON usac_entity_id=entity_id
                        LEFT JOIN Payment.bank ba ON bank_entity_id=entity_id
@@ -39,17 +39,17 @@ namespace HotelRealtaPayment.Persistence.Repositories
                     new() {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
-                        Value = account.UsacEntityId
+                        Value = account.Id
                     },
                     new() {
                         ParameterName = "@accountNumber",
                         DataType = DbType.String,
-                        Value = account.UsacAccountNumber
+                        Value = account.AccountNumber
                     },
                     new() {
                         ParameterName = "@saldo",
                         DataType = DbType.Decimal,
-                        Value = account.UsacSaldo
+                        Value = account.Saldo
                     },
                     new() {
                         ParameterName = "@usacModified",
@@ -75,9 +75,9 @@ namespace HotelRealtaPayment.Persistence.Repositories
         {
             var model = new SqlCommandModel()
             {
-                CommandText = @"SELECT usac_account_number UsacAccountNumber, usac_modified_date UsacModifiedDate,
+                CommandText = @"SELECT usac_account_number AccountNumber, usac_modified_date ModifiedDate,
 			                         CONCAT(ba.bank_name, pg.paga_code) as CodeName,
-			                         usac_saldo UsacSaldo, usac_type UsacType, usac_expmonth UsacExpmonth, usac_expyear UsacExpyear
+			                         usac_saldo Saldo, usac_type Type, usac_expmonth Expmonth, usac_expyear Expyear
                                 FROM Payment.User_Accounts ua
                            LEFT JOIN Payment.entity en ON usac_entity_id=entity_id
                            LEFT JOIN Payment.bank ba ON bank_entity_id=entity_id
@@ -123,37 +123,37 @@ namespace HotelRealtaPayment.Persistence.Repositories
                     new() {
                         ParameterName = "@entityId",
                         DataType = DbType.Int32,
-                        Value = account.UsacEntityId
+                        Value = account.Id
                     },
                     new() {
                         ParameterName = "@userId",
                         DataType = DbType.Int32,
-                        Value = account.UsacUserId
+                        Value = account.UserId
                     },
                     new() {
                         ParameterName = "@accountNumber",
                         DataType = DbType.String,
-                        Value = account.UsacAccountNumber
+                        Value = account.AccountNumber
                     },
                     new() {
                         ParameterName = "@saldo",
                         DataType = DbType.Decimal,
-                        Value = account.UsacSaldo
+                        Value = account.Saldo
                     },
                     new() {
                         ParameterName = "@type",
                         DataType = DbType.String,
-                        Value = account.UsacType
+                        Value = account.Type
                     },
                     new() {
                         ParameterName = "@expmonth",
                         IsNullable = true,
-                        Value = account.UsacExpmonth.HasValue ? account.UsacExpmonth : DBNull.Value
+                        Value = account.Expmonth.HasValue ? account.Expmonth : DBNull.Value
                     },
                     new() {
                         ParameterName = "@expyear",
                         IsNullable = true,
-                        Value = account.UsacExpyear.HasValue ? account.UsacExpyear : DBNull.Value
+                        Value = account.Expyear.HasValue ? account.Expyear : DBNull.Value
                     },
                     new() {
                         ParameterName = "@usacModified",
