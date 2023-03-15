@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "1uZ9x2CYSiEzma6U4nlysHRN06vjx3pIV+Vq1FrD7Q2kaQUHAqp57Dp/gj3EdYVe2wnnhcKF6jfkpdfQyYz+ZA==",
+  "dgSpecHash": "7lzbaU498hekJ/2QnpktxZ/2LKFbNiOtD02tQ2B6z8Yw2B/mylQt42/GUDQSEAkBqJmZzXf5OMB1VnqLU++vfA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.WebApi\\HotelRealtaPayment.WebApi.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\Code.id\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Code.id\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\Code.id\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
+    "C:\\Users\\Code.id\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\Code.id\\.nuget\\packages\\nlog\\5.1.1\\nlog.5.1.1.nupkg.sha512",
     "C:\\Users\\Code.id\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",
     "C:\\Users\\Code.id\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",

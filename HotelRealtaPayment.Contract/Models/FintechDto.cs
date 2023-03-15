@@ -5,8 +5,7 @@ namespace HotelRealtaPayment.Contract.Models
 {
     public class FintechDto
     {
-        [JsonPropertyName("id")]
-        public int Id { get; set; }
+        [JsonPropertyName("id")] public int Id { get; set; }
 
         [Required]
         [MinLength(3)]
@@ -22,6 +21,6 @@ namespace HotelRealtaPayment.Contract.Models
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("modifiedDate")]
-        public DateTime? ModifiedDate { get; set; } 
+        public DateTime? ModifiedDate { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace HotelRealtaPayment.Persistence.Repositories
     public class FintechRepository : RepositoryBase<Fintech>, IFintechRepository
     {
         public FintechRepository(AdoDbContext adoDbContext) : base(adoDbContext)
-        { 
+        {
         }
 
         public IEnumerable<Fintech> FindAllFintech()
@@ -35,23 +35,28 @@ namespace HotelRealtaPayment.Persistence.Repositories
                                        paga_modified_date = @date
                                  WHERE paga_entity_id = @id;",
                 CommandType = CommandType.Text,
-                CommandParameters = new SqlCommandParameterModel[] {
-                    new() {
+                CommandParameters = new SqlCommandParameterModel[]
+                {
+                    new()
+                    {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
                         Value = fintech.Id
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@code",
                         DataType = DbType.String,
                         Value = fintech.Code
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@name",
                         DataType = DbType.String,
                         Value = fintech.Name
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@date",
                         DataType = DbType.DateTime,
                         Value = fintech.ModifiedDate
@@ -81,8 +86,10 @@ namespace HotelRealtaPayment.Persistence.Repositories
                                   FROM Payment.Payment_Gateway 
                                  WHERE paga_entity_id = @id;",
                 CommandType = CommandType.Text,
-                CommandParameters = new SqlCommandParameterModel[] {
-                    new() {
+                CommandParameters = new SqlCommandParameterModel[]
+                {
+                    new()
+                    {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
                         Value = fintechId
@@ -107,13 +114,16 @@ namespace HotelRealtaPayment.Persistence.Repositories
                 CommandText = @"INSERT INTO Payment.Payment_Gateway (paga_code, paga_name)
                                 VALUES (@code, @name);",
                 CommandType = CommandType.Text,
-                CommandParameters = new SqlCommandParameterModel[] {
-                    new() {
+                CommandParameters = new SqlCommandParameterModel[]
+                {
+                    new()
+                    {
                         ParameterName = "@code",
                         DataType = DbType.String,
                         Value = fintech.Code
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@name",
                         DataType = DbType.String,
                         Value = fintech.Name
@@ -131,8 +141,10 @@ namespace HotelRealtaPayment.Persistence.Repositories
                 CommandText = @"DELETE FROM Payment.Payment_Gateway 
                                  WHERE paga_entity_id=@id;",
                 CommandType = CommandType.Text,
-                CommandParameters = new SqlCommandParameterModel[] {
-                    new() {
+                CommandParameters = new SqlCommandParameterModel[]
+                {
+                    new()
+                    {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
                         Value = fintechId

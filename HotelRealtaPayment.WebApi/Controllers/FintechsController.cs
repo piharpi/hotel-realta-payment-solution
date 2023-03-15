@@ -91,15 +91,15 @@ namespace HotelRealtaPayment.WebApi.Controllers
             var id = _repoManager.FintechRepository.Insert<int>(fintech);
 
             return CreatedAtRoute("GetFintech", new { id },
-            new
-            {
-                status = "success",
-                message = "Create fintech successfully.",
-                data = new
+                new
                 {
-                    idFintech = id
+                    status = "success",
+                    message = "Create fintech successfully.",
+                    data = new
+                    {
+                        idFintech = id
+                    }
                 }
-            }
             );
         }
 
@@ -123,15 +123,15 @@ namespace HotelRealtaPayment.WebApi.Controllers
 
 
             return Ok(
-            new
-            {
-                status = "success",
-                message = "Edit fintech successfully.",
-                data = new
+                new
                 {
-                    idFintech = id
+                    status = "success",
+                    message = "Edit fintech successfully.",
+                    data = new
+                    {
+                        idFintech = id
+                    }
                 }
-            }
             );
         }
 

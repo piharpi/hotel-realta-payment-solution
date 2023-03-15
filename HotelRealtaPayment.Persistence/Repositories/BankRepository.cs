@@ -9,7 +9,7 @@ namespace HotelRealtaPayment.Persistence.Repositories
     public class BankRepository : RepositoryBase<Bank>, IBankRepository
     {
         public BankRepository(AdoDbContext adoDbContext) : base(adoDbContext)
-        { 
+        {
         }
 
         public IEnumerable<Bank> FindAllBank()
@@ -38,24 +38,28 @@ namespace HotelRealtaPayment.Persistence.Repositories
                                        bank_modified_date = @date
                                  WHERE bank_entity_id = @id;",
                 CommandType = CommandType.Text,
-                CommandParameters = new SqlCommandParameterModel[] {
+                CommandParameters = new SqlCommandParameterModel[]
+                {
                     new()
                     {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
                         Value = bank.Id
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@code",
                         DataType = DbType.String,
                         Value = bank.Code
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@name",
                         DataType = DbType.String,
                         Value = bank.Name
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@date",
                         DataType = DbType.DateTime,
                         Value = bank.ModifiedDate
@@ -85,8 +89,10 @@ namespace HotelRealtaPayment.Persistence.Repositories
                                   FROM Payment.Bank 
                                  WHERE bank_entity_id = @id;",
                 CommandType = CommandType.Text,
-                CommandParameters = new SqlCommandParameterModel[] {
-                    new() {
+                CommandParameters = new SqlCommandParameterModel[]
+                {
+                    new()
+                    {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
                         Value = bankId
@@ -111,13 +117,16 @@ namespace HotelRealtaPayment.Persistence.Repositories
                 CommandText = @"INSERT INTO Payment.Bank (bank_code, bank_name)
                                 VALUES (@code, @name);",
                 CommandType = CommandType.Text,
-                CommandParameters = new SqlCommandParameterModel[] {
-                    new() {
+                CommandParameters = new SqlCommandParameterModel[]
+                {
+                    new()
+                    {
                         ParameterName = "@code",
                         DataType = DbType.String,
                         Value = bank.Code
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@name",
                         DataType = DbType.String,
                         Value = bank.Name
@@ -134,8 +143,10 @@ namespace HotelRealtaPayment.Persistence.Repositories
             {
                 CommandText = "DELETE FROM Payment.Bank WHERE bank_entity_id = @id;",
                 CommandType = CommandType.Text,
-                CommandParameters = new SqlCommandParameterModel[] {
-                    new() {
+                CommandParameters = new SqlCommandParameterModel[]
+                {
+                    new()
+                    {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
                         Value = bankId

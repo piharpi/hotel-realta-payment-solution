@@ -1,5 +1,6 @@
 ﻿using HotelRealtaPayment.Persistence.Reflection;
 using System.Collections;
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Reflection;
@@ -92,7 +93,7 @@ namespace HotelRealtaPayment.Persistence.RepositoryContext
                     ParameterName = parameter.ParameterName,
                     DbType = parameter.DataType,
                     Value = parameter.Value,
-                    IsNullable = parameter.IsNullable 
+                    IsNullable = parameter.IsNullable
                 });
             _sqlConnection.OpenAsync();
             sqlCommand.ExecuteNonQueryAsync();
@@ -127,7 +128,7 @@ namespace HotelRealtaPayment.Persistence.RepositoryContext
                     ParameterName = parameter.ParameterName,
                     DbType = parameter.DataType,
                     Value = parameter.Value,
-                    IsNullable = parameter.IsNullable 
+                    IsNullable = parameter.IsNullable
                 });
             await _sqlConnection.OpenAsync();
             T data = (T)await sqlCommand.ExecuteScalarAsync();
@@ -143,6 +144,7 @@ namespace HotelRealtaPayment.Persistence.RepositoryContext
             {
                 throw new InvalidOperationException($"Type {TypeT.Name} does not have a default constructor.");
             }
+
             _sqlConnection.Open();
             IEnumerator data = new SqlCommand(sql, _sqlConnection).ExecuteReader().GetEnumerator();
             while (data.MoveNext())
@@ -163,8 +165,10 @@ namespace HotelRealtaPayment.Persistence.RepositoryContext
                             propertyInfo.SetValue(newInst, value);
                     }
                 }
+
                 yield return newInst;
             }
+
             _sqlConnection.Close();
         }
 
@@ -176,6 +180,7 @@ namespace HotelRealtaPayment.Persistence.RepositoryContext
             {
                 throw new InvalidOperationException($"Type {TypeT.Name} does not have a default constructor.");
             }
+
             SqlCommand sqlCommand = new(model.CommandText, _sqlConnection);
             sqlCommand.CommandType = model.CommandType;
             foreach (SqlCommandParameterModel parameter in model.CommandParameters)
@@ -205,9 +210,11 @@ namespace HotelRealtaPayment.Persistence.RepositoryContext
                             else propertyInfo.SetValue(newInst, value);
                         }
                     }
+
                     yield return newInst;
                 }
             }
+
             _sqlConnection.Close();
         }
 
@@ -219,6 +226,7 @@ namespace HotelRealtaPayment.Persistence.RepositoryContext
             {
                 throw new InvalidOperationException($"Type {TypeT.Name} does not have a default constructor.");
             }
+
             SqlCommand sqlCommand = new(model.CommandText, _sqlConnection);
             sqlCommand.CommandType = model.CommandType;
             foreach (SqlCommandParameterModel parameter in model.CommandParameters)
@@ -248,9 +256,11 @@ namespace HotelRealtaPayment.Persistence.RepositoryContext
                             else propertyInfo.SetValue(newInst, value);
                         }
                     }
+
                     yield return newInst;
                 }
             }
+
             await _sqlConnection.CloseAsync();
         }
 
@@ -280,6 +290,7 @@ namespace HotelRealtaPayment.Persistence.RepositoryContext
                 await _sqlConnection.CloseAsync();
             }
         }
+
         public T ExecuteScalar<T>(string sql)
         {
             try
@@ -294,7 +305,34 @@ namespace HotelRealtaPayment.Persistence.RepositoryContext
             {
                 _sqlConnection.Close();
             }
+        }
+        
+        public dynamic ExecuteStoreProcedure(SqlCommandModel model, string returnValue, int sizeLength)
+        {
+            var sqlCommand = new SqlCommand(model.CommandText, _sqlConnection);
+            sqlCommand.CommandType = model.CommandType;
+            foreach (SqlCommandParameterModel parameter in model.CommandParameters)
+            {
+                sqlCommand.Parameters.Add(new SqlParameter()
+                {
+                    ParameterName = parameter.ParameterName,
+                    DbType = parameter.DataType,
+                    Value = parameter.Value
 
+                });
+            }
+
+            sqlCommand.Parameters[returnValue].Size = sizeLength;
+            sqlCommand.Parameters[returnValue].Direction = ParameterDirection.Output;
+            _sqlConnection.Open();
+
+            sqlCommand.ExecuteNonQuery();
+
+            _sqlConnection.Close();
+
+
+            var result = sqlCommand.Parameters[returnValue].Value;
+            return result;
         }
     }
 }

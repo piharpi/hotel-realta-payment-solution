@@ -26,14 +26,14 @@ namespace HotelRealtaPayment.WebApi.Controllers
         public IActionResult Get()
         {
             var a = _repoManager.AccountRepository
-               .FindAllAccount()
-               .Select(a => new AccountDto
-               {
-                   Number = a.AccountNumber,
-                   CodeName = a.CodeName,
-                   Saldo = a.Saldo,
-                   Type = a.Type
-               });
+                .FindAllAccount()
+                .Select(a => new AccountDto
+                {
+                    Number = a.AccountNumber,
+                    CodeName = a.CodeName,
+                    Saldo = a.Saldo,
+                    Type = a.Type
+                });
 
             return Ok(new
             {
@@ -97,15 +97,15 @@ namespace HotelRealtaPayment.WebApi.Controllers
             var id = _repoManager.AccountRepository.Insert<int>(account);
 
             return CreatedAtRoute("GetAccount", new { id },
-            new
-            {
-                status = "success",
-                message = "Create account successfully.",
-                data = new
+                new
                 {
-                    idAccount = id
+                    status = "success",
+                    message = "Create account successfully.",
+                    data = new
+                    {
+                        idAccount = id
+                    }
                 }
-            }
             );
         }
 
@@ -127,15 +127,15 @@ namespace HotelRealtaPayment.WebApi.Controllers
                 return NotFound();
 
             return CreatedAtRoute("GetAccount", new { id },
-            new
-            {
-                status = "success",
-                message = "Edit account successfully.",
-                data = new
+                new
                 {
-                    idAccount = id
-                }
-            });
+                    status = "success",
+                    message = "Edit account successfully.",
+                    data = new
+                    {
+                        idAccount = id
+                    }
+                });
         }
 
         // DELETE api/<AccountsController>/5

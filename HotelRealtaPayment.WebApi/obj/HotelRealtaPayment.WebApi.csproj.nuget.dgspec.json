@@ -138,6 +138,9 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
+              "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Contract\\HotelRealtaPayment.Contract.csproj": {
+                "projectPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Contract\\HotelRealtaPayment.Contract.csproj"
+              },
               "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Domain\\HotelRealtaPayment.Domain.csproj": {
                 "projectPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Domain\\HotelRealtaPayment.Domain.csproj"
               }
@@ -351,6 +354,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"

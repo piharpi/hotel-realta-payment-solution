@@ -8,10 +8,34 @@
    refund : mengembalikan uang user dengan ketentuan tertentu misal 50%
    order menu : membayar order menu ke target hotel realta
    
+3. Store procedures :
+   - Create Account sp
+   - [DONE] transaction Topup   
+   - transaction Tranfer booking 
+   - transaction order menu
+   ------------------------- khusus -----------
+   - transaction Repayment
+   - transaction refund (50%)
    
+4. tambah kolom saldo di transaction untuk mencatat saldo
+5. tambah kolom pembayaran kurang untuk repayment
    
-3. membuat account hotel realta ada dimockup, memungkinan user membayar menggunakan BANK
+[DONE] trigger transaction on instead of insert
 
-6. fitur searching masing-masing entity
+[DONE] membuat account hotel realta ada dimockup, memungkinan user membayar menggunakan BANK
 
-7. refactoring sepertinya tidak perlu menggunakan dto setiap ingin dikembalikan ke user
+fitur searching masing-masing entity
+
+
+ANOTHER TODO :
+- Mockup frontend Bank
+- Mockup frontend Fintech
+- Mockup frontend user_accounts
+- Mockup frontend transaction
+- repayment transaction
+- backend integrasi dengan transaction
+
+
+- user account create and edit pada my account module users
+- top up juga harusnya di halaman user
+- malam ini harus crud selesai

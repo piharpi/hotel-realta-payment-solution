@@ -13,3 +13,5 @@ C:\Users\Code.id\Documents\Harpi\HotelRealtaPaymentSolution\HotelRealtaPayment.P
 C:\Users\Code.id\Documents\Harpi\HotelRealtaPaymentSolution\HotelRealtaPayment.Persistence\obj\Debug\net6.0\refint\HotelRealtaPayment.Persistence.dll
 C:\Users\Code.id\Documents\Harpi\HotelRealtaPaymentSolution\HotelRealtaPayment.Persistence\obj\Debug\net6.0\HotelRealtaPayment.Persistence.pdb
 C:\Users\Code.id\Documents\Harpi\HotelRealtaPaymentSolution\HotelRealtaPayment.Persistence\obj\Debug\net6.0\ref\HotelRealtaPayment.Persistence.dll
+C:\Users\Code.id\Documents\Harpi\HotelRealtaPaymentSolution\HotelRealtaPayment.Persistence\bin\Debug\net6.0\HotelRealtaPayment.Contract.dll
+C:\Users\Code.id\Documents\Harpi\HotelRealtaPaymentSolution\HotelRealtaPayment.Persistence\bin\Debug\net6.0\HotelRealtaPayment.Contract.pdb

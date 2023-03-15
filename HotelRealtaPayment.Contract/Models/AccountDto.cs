@@ -18,16 +18,11 @@ namespace HotelRealtaPayment.Contract.Models
         [JsonPropertyName("entityId")]
         public int Id { get; set; }
 
-        [JsonPropertyName("codeName")]
-        public string? CodeName { get; set; }
+        [JsonPropertyName("codeName")] public string? CodeName { get; set; }
 
-        [Required]
-        [JsonPropertyName("saldo")]
-        public decimal Saldo { get; set; }
+        [Required] [JsonPropertyName("saldo")] public decimal Saldo { get; set; }
 
-        [Required]
-        [JsonPropertyName("type")]
-        public string Type { get; set; }
+        [Required] [JsonPropertyName("type")] public string Type { get; set; }
 
         [Range(0, 12)]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

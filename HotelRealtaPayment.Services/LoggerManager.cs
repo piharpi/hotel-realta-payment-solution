@@ -6,6 +6,7 @@ namespace Northwind.Services
     public class LoggerManager : ILoggerManager
     {
         private static ILogger logger = LogManager.GetCurrentClassLogger();
+
         public void LogDebug(string message)
         {
             logger.Debug(message);

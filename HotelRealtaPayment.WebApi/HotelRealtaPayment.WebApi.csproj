@@ -1,21 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\HotelRealtaPayment.Contract\HotelRealtaPayment.Contract.csproj" />
-    <ProjectReference Include="..\HotelRealtaPayment.Domain\HotelRealtaPayment.Domain.csproj" />
-    <ProjectReference Include="..\HotelRealtaPayment.Persistence\HotelRealtaPayment.Persistence.csproj" />
-    <ProjectReference Include="..\HotelRealtaPayment.Services.Abstraction\HotelRealtaPayment.Services.Abstraction.csproj" />
-    <ProjectReference Include="..\HotelRealtaPayment.Services\HotelRealtaPayment.Services.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\HotelRealtaPayment.Contract\HotelRealtaPayment.Contract.csproj" />
+        <ProjectReference Include="..\HotelRealtaPayment.Domain\HotelRealtaPayment.Domain.csproj" />
+        <ProjectReference Include="..\HotelRealtaPayment.Persistence\HotelRealtaPayment.Persistence.csproj" />
+        <ProjectReference Include="..\HotelRealtaPayment.Services.Abstraction\HotelRealtaPayment.Services.Abstraction.csproj" />
+        <ProjectReference Include="..\HotelRealtaPayment.Services\HotelRealtaPayment.Services.csproj" />
+    </ItemGroup>
 
 </Project>

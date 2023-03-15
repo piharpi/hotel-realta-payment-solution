@@ -21,6 +21,6 @@ namespace HotelRealtaPayment.Contract.Models
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("modifiedDate")]
-        public DateTime? ModifiedDate { get; set; } 
+        public DateTime? ModifiedDate { get; set; }
     }
 }

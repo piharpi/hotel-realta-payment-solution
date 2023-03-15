@@ -6,12 +6,9 @@ namespace HotelRealtaPayment.Domain.Entities
     [Table("user_accounts")]
     public class Account
     {
-        [Key]
-        [ForeignKey("entity")]
-        public int Id { get; set; }
+        [Key] [ForeignKey("entity")] public int Id { get; set; }
 
-        [ForeignKey("users")]
-        public int UserId { get; set; }
+        [ForeignKey("users")] public int UserId { get; set; }
         public string? CodeName { get; set; }
         public string AccountNumber { get; set; }
         public decimal Saldo { get; set; }

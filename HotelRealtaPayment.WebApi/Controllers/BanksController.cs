@@ -29,15 +29,16 @@ namespace HotelRealtaPayment.WebApi.Controllers
                 .FindAllBank()
                 .Select(b => new BankDto
                 {
-                    Id   = b.Id,
+                    Id = b.Id,
                     Code = b.Code,
                     Name = b.Name
                 });
 
             if (!string.IsNullOrEmpty(name))
                 b = b.Where(bank => bank.Name.ToLower().Contains(name.ToLower()));
-            
-            return Ok(new {
+
+            return Ok(new
+            {
                 status = "success",
                 data = new
                 {
@@ -90,15 +91,15 @@ namespace HotelRealtaPayment.WebApi.Controllers
             var id = _repoManager.BankRepository.Insert<int>(bank);
 
             return CreatedAtRoute("GetBank", new { id },
-            new
-            {
-                status = "success",
-                message = "Create bank successfully.",
-                data = new
+                new
                 {
-                    idBank = id
+                    status = "success",
+                    message = "Create bank successfully.",
+                    data = new
+                    {
+                        idBank = id
+                    }
                 }
-            }
             );
         }
 
@@ -119,15 +120,15 @@ namespace HotelRealtaPayment.WebApi.Controllers
                 return NotFound();
 
             return Ok(
-            new
-            {
-                status = "success",
-                message = "Edit bank successfully.",
-                data = new
+                new
                 {
-                    idBank = id
+                    status = "success",
+                    message = "Edit bank successfully.",
+                    data = new
+                    {
+                        idBank = id
+                    }
                 }
-            }
             );
         }
 
@@ -142,7 +143,8 @@ namespace HotelRealtaPayment.WebApi.Controllers
                 return NotFound();
             }
 
-            return Ok(new {
+            return Ok(new
+            {
                 status = "success",
                 message = "Delete bank successfully.",
             });

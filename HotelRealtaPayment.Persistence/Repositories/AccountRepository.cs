@@ -11,6 +11,7 @@ namespace HotelRealtaPayment.Persistence.Repositories
         public AccountRepository(AdoDbContext adoContext) : base(adoContext)
         {
         }
+
         public IEnumerable<Account> FindAllAccount()
         {
             const string query = @"SELECT usac_account_number AccountNumber, 
@@ -35,28 +36,33 @@ namespace HotelRealtaPayment.Persistence.Repositories
                                           usac_modified_date = @usacModified
                                     WHERE usac_entity_id = @id;";
 
-            var parameters = new SqlCommandParameterModel[] {
-                    new() {
-                        ParameterName = "@id",
-                        DataType = DbType.Int32,
-                        Value = account.Id
-                    },
-                    new() {
-                        ParameterName = "@accountNumber",
-                        DataType = DbType.String,
-                        Value = account.AccountNumber
-                    },
-                    new() {
-                        ParameterName = "@saldo",
-                        DataType = DbType.Decimal,
-                        Value = account.Saldo
-                    },
-                    new() {
-                        ParameterName = "@usacModified",
-                        DataType = DbType.DateTime,
-                        Value = DateTime.Now
-                    }
-                };
+            var parameters = new SqlCommandParameterModel[]
+            {
+                new()
+                {
+                    ParameterName = "@id",
+                    DataType = DbType.Int32,
+                    Value = account.Id
+                },
+                new()
+                {
+                    ParameterName = "@accountNumber",
+                    DataType = DbType.String,
+                    Value = account.AccountNumber
+                },
+                new()
+                {
+                    ParameterName = "@saldo",
+                    DataType = DbType.Decimal,
+                    Value = account.Saldo
+                },
+                new()
+                {
+                    ParameterName = "@usacModified",
+                    DataType = DbType.DateTime,
+                    Value = DateTime.Now
+                }
+            };
 
             var model = new SqlCommandModel()
             {
@@ -84,8 +90,10 @@ namespace HotelRealtaPayment.Persistence.Repositories
                            LEFT JOIN Payment.payment_gateway pg ON paga_entity_id=entity_id
                                 WHERE usac_entity_id=@id",
                 CommandType = CommandType.Text,
-                CommandParameters = new SqlCommandParameterModel[] {
-                    new() {
+                CommandParameters = new SqlCommandParameterModel[]
+                {
+                    new()
+                    {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
                         Value = accountId
@@ -119,43 +127,52 @@ namespace HotelRealtaPayment.Persistence.Repositories
                                 VALUES (@entityId, @userId, @accountNumber, @saldo,
                                         @type, @expmonth, @expyear, @usacModified);",
                 CommandType = CommandType.Text,
-                CommandParameters = new SqlCommandParameterModel[] {
-                    new() {
+                CommandParameters = new SqlCommandParameterModel[]
+                {
+                    new()
+                    {
                         ParameterName = "@entityId",
                         DataType = DbType.Int32,
                         Value = account.Id
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@userId",
                         DataType = DbType.Int32,
                         Value = account.UserId
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@accountNumber",
                         DataType = DbType.String,
                         Value = account.AccountNumber
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@saldo",
                         DataType = DbType.Decimal,
                         Value = account.Saldo
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@type",
                         DataType = DbType.String,
                         Value = account.Type
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@expmonth",
                         IsNullable = true,
                         Value = account.Expmonth.HasValue ? account.Expmonth : DBNull.Value
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@expyear",
                         IsNullable = true,
                         Value = account.Expyear.HasValue ? account.Expyear : DBNull.Value
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@usacModified",
                         DataType = DbType.DateTime,
                         Value = DateTime.Now
@@ -172,8 +189,10 @@ namespace HotelRealtaPayment.Persistence.Repositories
             {
                 CommandText = "DELETE FROM Payment.User_Accounts WHERE usac_entity_id=@id;",
                 CommandType = CommandType.Text,
-                CommandParameters = new SqlCommandParameterModel[] {
-                    new() {
+                CommandParameters = new SqlCommandParameterModel[]
+                {
+                    new()
+                    {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
                         Value = accountId

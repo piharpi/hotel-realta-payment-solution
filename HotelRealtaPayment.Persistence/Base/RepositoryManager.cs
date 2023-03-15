@@ -21,6 +21,8 @@ namespace HotelRealtaPayment.Persistence.Base
         public IBankRepository BankRepository => _bankRepository ??= new BankRepository(_adoContext);
         public IFintechRepository FintechRepository => _fintechRepository ??= new FintechRepository(_adoContext);
         public IAccountRepository AccountRepository => _accountRepository ??= new AccountRepository(_adoContext);
-        public ITransactionRepository TransactionRepository => _transactionRepository ??= new TransactionRepository(_adoContext);
+
+        public ITransactionRepository TransactionRepository =>
+            _transactionRepository ??= new TransactionRepository(_adoContext);
     }
 }
