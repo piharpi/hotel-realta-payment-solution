@@ -3,6 +3,8 @@ using HotelRealtaPayment.Domain.Repositories;
 using HotelRealtaPayment.Persistence.Base;
 using HotelRealtaPayment.Persistence.RepositoryContext;
 using System.Data;
+using HotelRealtaPayment.Contract.Models;
+using HotelRealtaPayment.Domain.RequestFeatures;
 
 namespace HotelRealtaPayment.Persistence.Repositories
 {
@@ -40,9 +42,136 @@ namespace HotelRealtaPayment.Persistence.Repositories
                 yield return listOfTransaction.Current;
         }
 
-        public Task<IEnumerable<Transaction>> FindAllTransactionAsync()
+        public async Task<IEnumerable<Transaction>> FindAllTransactionAsync()
         {
-            throw new NotImplementedException();
+            var model = new SqlCommandModel()
+            {
+                CommandText = @"SELECT patr_trx_number PatrTrxNumber, 
+				                         patr_modified_date PatrModifiedDate,
+				                         patr_debet PatrDebet,
+				                         patr_credit PatrCredit,
+				                         patr_note PatrNote,
+				                         patr_order_number PatrOrderNumber,
+				                         patr_source_id PatrSourceId,
+				                         patr_target_id PatrTargetId,
+				                         patr_trx_number_ref PatrTrxNumberRef,
+				                         patr_type PatrType,
+				                         us.user_full_name UserFullName
+                                    FROM [Payment].payment_transaction patr
+                                    LEFT JOIN Users.users us
+			                          ON us.user_id = patr.patr_user_id;",
+                CommandType = CommandType.Text,
+                CommandParameters = new SqlCommandParameterModel[] { }
+            };
+            var dataSet = FindAllAsync<Transaction>(model);
+            var item = new List<Transaction>();
+            while (await dataSet.MoveNextAsync())
+            {
+                item.Add(dataSet.Current);
+            }
+            return item;
+        }
+
+        public async Task<IEnumerable<Transaction>> GetTransactionPaging(TransactionParameters transactionParameter)
+        {
+            var model = new SqlCommandModel()
+            {
+                CommandText = @"SELECT patr_trx_number PatrTrxNumber, 
+				                         patr_modified_date PatrModifiedDate,
+				                         patr_debet PatrDebet,
+				                         patr_credit PatrCredit,
+				                         patr_note PatrNote,
+				                         patr_order_number PatrOrderNumber,
+				                         patr_source_id PatrSourceId,
+				                         patr_target_id PatrTargetId,
+				                         patr_trx_number_ref PatrTrxNumberRef,
+				                         patr_type PatrType,
+				                         us.user_full_name UserFullName
+                                FROM Payment.payment_transaction patr
+                                LEFT JOIN Users.users us
+			                    ON us.user_id = patr.patr_user_id
+                                ORDER BY patr_trx_number
+                                OFFSET @pageNumber ROWS FETCH NEXT @pageSize ROWS ONLY;",
+                CommandType = CommandType.Text,
+                CommandParameters = new SqlCommandParameterModel[] {
+                    new() {
+                        ParameterName = "@pageNumber",
+                        DataType = DbType.Int32,
+                        Value = transactionParameter.PageNumber
+                    },
+                    new()
+                    {
+                        ParameterName = "@pageSize",
+                        DataType = DbType.Int32,
+                        Value = transactionParameter.PageSize
+                    }
+                }
+            };
+
+            var item = new List<Transaction>();
+
+            var dataSet = FindAllAsync<Transaction>(model);
+
+            while (await dataSet.MoveNextAsync())
+                item.Add(dataSet.Current);
+
+            return item;
+        }
+
+        public async Task<PagedList<Transaction>> GetTransactionPageList(TransactionParameters transactionParameter)
+        {
+            var model = new SqlCommandModel()
+            {
+                CommandText = @"SELECT patr_trx_number PatrTrxNumber, 
+				                         patr_modified_date PatrModifiedDate,
+				                         patr_debet PatrDebet,
+				                         patr_credit PatrCredit,
+				                         patr_note PatrNote,
+				                         patr_order_number PatrOrderNumber,
+				                         patr_source_id PatrSourceId,
+				                         patr_target_id PatrTargetId,
+				                         patr_trx_number_ref PatrTrxNumberRef,
+				                         patr_type PatrType,
+				                         us.user_full_name UserFullName
+                                FROM Payment.payment_transaction patr
+                                LEFT JOIN Users.users us
+			                    ON us.user_id = patr.patr_user_id
+                                WHERE LOWER(patr.patr_trx_number) LIKE '%'+@searchTerm+'%'
+                                AND LOWER(patr.patr_trx_number) LIKE '%'+@type+'%'
+                                ORDER BY patr_trx_number
+                                OFFSET @pageNumber ROWS FETCH NEXT @pageSize ROWS ONLY;",
+                CommandType = CommandType.Text,
+                CommandParameters = new SqlCommandParameterModel[] {
+                    new() {
+                        ParameterName = "@pageNumber",
+                        DataType = DbType.Int32,
+                        Value = transactionParameter.PageNumber
+                    },
+                    new()
+                    {
+                        ParameterName = "@pageSize",
+                        DataType = DbType.Int32,
+                        Value = transactionParameter.PageSize
+                    },
+                    new()
+                    {
+                        ParameterName = "@type",
+                        DataType = DbType.String,
+                        Value = transactionParameter.Type.Trim().ToLower()
+                    },
+                    new()
+                    {
+                        ParameterName = "@searchTerm",
+                        DataType = DbType.String,
+                        Value = transactionParameter.SearchTerm.Trim().ToLower()
+                    }
+                }
+            };
+
+            var transactions = await GetAllAsync<Transaction>(model);
+            var totalRow = (await FindAllTransactionAsync()).Count();
+
+            return new PagedList<Transaction>(transactions.ToList(), totalRow, transactionParameter.PageNumber, transactionParameter.PageSize);
         }
 
         public Transaction FindTransactionById(int transactionId)
@@ -67,8 +196,10 @@ namespace HotelRealtaPayment.Persistence.Repositories
             {
                 CommandText = query,
                 CommandType = CommandType.Text,
-                CommandParameters = new SqlCommandParameterModel[] {
-                    new() {
+                CommandParameters = new SqlCommandParameterModel[]
+                {
+                    new()
+                    {
                         ParameterName = "@id",
                         DataType = DbType.Int32,
                         Value = transactionId
@@ -115,8 +246,10 @@ namespace HotelRealtaPayment.Persistence.Repositories
                                        ,@order_number_ref
                                        ,@user_id);",
                 CommandType = CommandType.Text,
-                CommandParameters = new SqlCommandParameterModel[] {
-                    new() {
+                CommandParameters = new SqlCommandParameterModel[]
+                {
+                    new()
+                    {
                         ParameterName = "@transactionNumber",
                         DataType = DbType.String,
                         Value = $"{transaction.PatrType}#{DateTime.Now.ToString("yyyyMMdd")}-"
@@ -145,29 +278,38 @@ namespace HotelRealtaPayment.Persistence.Repositories
                         DataType = DbType.String,
                         Value = string.IsNullOrEmpty(transaction.PatrNote) ? DBNull.Value : transaction.PatrNote
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@src_id",
                         DataType = DbType.String,
                         Value = string.IsNullOrEmpty(transaction.PatrSourceId) ? DBNull.Value : transaction.PatrSourceId
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@trg_id",
                         DataType = DbType.String,
                         Value = string.IsNullOrEmpty(transaction.PatrTargetId) ? DBNull.Value : transaction.PatrTargetId
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@order_number",
                         DataType = DbType.String,
                         IsNullable = true,
-                        Value = string.IsNullOrEmpty(transaction.PatrOrderNumber) ? DBNull.Value : transaction.PatrOrderNumber
+                        Value = string.IsNullOrEmpty(transaction.PatrOrderNumber)
+                            ? DBNull.Value
+                            : transaction.PatrOrderNumber
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@order_number_ref",
                         DataType = DbType.String,
                         IsNullable = true,
-                        Value = string.IsNullOrEmpty(transaction.PatrTrxNumberRef) ? DBNull.Value : transaction.PatrTrxNumberRef
+                        Value = string.IsNullOrEmpty(transaction.PatrTrxNumberRef)
+                            ? DBNull.Value
+                            : transaction.PatrTrxNumberRef
                     },
-                    new() {
+                    new()
+                    {
                         ParameterName = "@user_id",
                         DataType = DbType.Int64,
                         Value = transaction.PatrUserId

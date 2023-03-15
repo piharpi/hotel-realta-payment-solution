@@ -9,34 +9,25 @@ namespace HotelRealtaPayment.Contract.Models
         public int Id { get; set; }
 
         [JsonPropertyName("transactionNumber")]
-        public string? TransactionNumber  { get; set; }
+        public string? TransactionNumber { get; set; }
 
-        [JsonPropertyName("modifiedDate")]
-        public DateTime ModifiedDate { get; set; }
+        [JsonPropertyName("modifiedDate")] public DateTime ModifiedDate { get; set; }
 
-        [JsonPropertyName("debet")]
-        public decimal Debet { get; set; }
+        [JsonPropertyName("debet")] public decimal Debet { get; set; }
 
-        [JsonPropertyName("credit")]
-        public decimal Credit { get; set; }
+        [JsonPropertyName("credit")] public decimal Credit { get; set; }
 
-        [JsonPropertyName("note")]
-        public string Note { get; set; }
+        [JsonPropertyName("note")] public string Note { get; set; }
 
-        [JsonPropertyName("orderNumber")]
-        public string? OrderNumber { get; set; }
+        [JsonPropertyName("orderNumber")] public string? OrderNumber { get; set; }
 
-        [JsonPropertyName("sourceId")]
-        public string SourceId { get; set; }
+        [JsonPropertyName("sourceId")] public string SourceId { get; set; }
 
-        [JsonPropertyName("targetId")]
-        public string TargetId { get; set; }
+        [JsonPropertyName("targetId")] public string TargetId { get; set; }
 
-        [JsonPropertyName("type")]
-        public string Type { get; set; }
+        [JsonPropertyName("type")] public string Type { get; set; }
 
-        [JsonPropertyName("transactionRef")]
-        public string? TransactionRef { get; set; }
+        [JsonPropertyName("transactionRef")] public string? TransactionRef { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         [JsonPropertyName("userName")]

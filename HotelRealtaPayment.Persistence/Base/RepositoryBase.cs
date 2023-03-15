@@ -32,7 +32,7 @@ namespace HotelRealtaPayment.Persistence.Base
 
             var list = new List<T>();
 
-            while(listOfData.MoveNext())
+            while (listOfData.MoveNext())
             {
                 list.Add(listOfData.Current);
             }
@@ -45,6 +45,21 @@ namespace HotelRealtaPayment.Persistence.Base
             var listOfData = _adoContext.ExecuteReader<T>(sql);
             _adoContext.Dispose();
             return listOfData;
+        }
+
+        public async Task<IEnumerable<TValue>> GetAllAsync<TValue>(SqlCommandModel model)
+        {
+            var dataT = _adoContext.ExecuteReaderAsync<TValue>(model);
+            var listData = new List<TValue>();
+
+            while(await dataT.MoveNextAsync())
+            {
+                listData.Add(dataT.Current);
+            }
+
+            _adoContext.DisposeAsync();
+
+            return listData;
         }
 
         public IAsyncEnumerator<T> FindAllAsync<T>(SqlCommandModel model)
@@ -66,7 +81,5 @@ namespace HotelRealtaPayment.Persistence.Base
             _adoContext.ExecuteNonQuery(model);
             _adoContext.Dispose();
         }
-
-
     }
 }

@@ -1,8 +1,10 @@
 ﻿using HotelRealtaPayment.Contract.Models;
 using HotelRealtaPayment.Domain.Base;
 using HotelRealtaPayment.Domain.Entities;
+using HotelRealtaPayment.Domain.RequestFeatures;
 using HotelRealtaPayment.Services.Abstraction;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -27,21 +29,84 @@ namespace HotelRealtaPayment.WebApi.Controllers
         public IActionResult Get()
         {
             var t = _repoManager.TransactionRepository
-                    .FindAllTransaction()
-                    .Select(t => new TransactionDto()
-                    {
-                        TransactionNumber = t.PatrTrxNumber,
-                        ModifiedDate = t.PatrModifiedDate,
-                        Debet = t.PatrDebet,
-                        Credit = t.PatrCredit,
-                        Note = t.PatrNote,
-                        OrderNumber = t.PatrOrderNumber,
-                        SourceId = t.PatrSourceId,
-                        TargetId = t.PatrTargetId,
-                        TransactionRef = t.PatrTrxNumberRef,
-                        Type = t.PatrType,
-                        UserName = t.UserFullName
-                    });
+                .FindAllTransaction()
+                .Select(t => new TransactionDto()
+                {
+                    TransactionNumber = t.PatrTrxNumber,
+                    ModifiedDate = t.PatrModifiedDate,
+                    Debet = t.PatrDebet,
+                    Credit = t.PatrCredit,
+                    Note = t.PatrNote,
+                    OrderNumber = t.PatrOrderNumber,
+                    SourceId = t.PatrSourceId,
+                    TargetId = t.PatrTargetId,
+                    TransactionRef = t.PatrTrxNumberRef,
+                    Type = t.PatrType,
+                    UserName = t.UserFullName
+                });
+
+            return Ok(new
+            {
+                status = "success",
+                data = new
+                {
+                    transactions = t
+                }
+            });
+        }
+        
+        [HttpGet("page")]
+        public async Task<IActionResult> GetTransactionPaging([FromQuery] TransactionParameters transactionParameters)
+        {
+            var transactions = await _repoManager.TransactionRepository.GetTransactionPaging(transactionParameters);
+            var t = transactions
+                .Select(t => new TransactionDto()
+            {
+                TransactionNumber = t.PatrTrxNumber,
+                ModifiedDate = t.PatrModifiedDate,
+                Debet = t.PatrDebet,
+                Credit = t.PatrCredit,
+                Note = t.PatrNote,
+                OrderNumber = t.PatrOrderNumber,
+                SourceId = t.PatrSourceId,
+                TargetId = t.PatrTargetId,
+                TransactionRef = t.PatrTrxNumberRef,
+                Type = t.PatrType,
+                UserName = t.UserFullName
+            });
+
+            return Ok(new
+            {
+                status = "success",
+                data = new
+                {
+                    transactions = t
+                }
+            });
+        }
+        
+        // GET api/<ProductController>/5
+        [HttpGet("pageList")]
+        public async Task<IActionResult> GetProductPageList([FromQuery] TransactionParameters transactionParameters)
+        {
+            var transactions = await _repoManager.TransactionRepository.GetTransactionPageList(transactionParameters);
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(transactions.MetaData));
+            var t = transactions
+                .Select(t => new TransactionDto()
+                {
+                    TransactionNumber = t.PatrTrxNumber,
+                    ModifiedDate = t.PatrModifiedDate,
+                    Debet = t.PatrDebet,
+                    Credit = t.PatrCredit,
+                    Note = t.PatrNote,
+                    OrderNumber = t.PatrOrderNumber,
+                    SourceId = t.PatrSourceId,
+                    TargetId = t.PatrTargetId,
+                    TransactionRef = t.PatrTrxNumberRef,
+                    Type = t.PatrType,
+                    UserName = t.UserFullName
+                });
 
             return Ok(new
             {
@@ -90,10 +155,10 @@ namespace HotelRealtaPayment.WebApi.Controllers
         // POST api/<TransactionsController>
         [HttpPost]
         [HttpPost("topup")]
-        [HttpPost("transfer-booking")]
-        [HttpPost("repayment")]
-        [HttpPost("refund")]
-        [HttpPost("order-menu")]
+        // [HttpPost("transfer-booking")]
+        // [HttpPost("repayment")]
+        // [HttpPost("refund")]
+        // [HttpPost("order-menu")]
         public IActionResult Post([FromBody] TransactionDto transactionDto)
         {
             var transaction = new Transaction()
@@ -106,22 +171,22 @@ namespace HotelRealtaPayment.WebApi.Controllers
                 PatrSourceId = transactionDto.SourceId,
                 PatrTargetId = transactionDto.TargetId,
                 PatrOrderNumber = transactionDto.OrderNumber,
-                PatrTrxNumberRef =transactionDto.TransactionRef, 
+                PatrTrxNumberRef = transactionDto.TransactionRef,
                 PatrUserId = transactionDto.UserId
             };
 
             var id = _repoManager.TransactionRepository.Insert<int>(transaction);
 
             return CreatedAtRoute("GetTransaction", new { id = id },
-            new
-            {
-                status = "success",
-                message = "Create transaction successfully.",
-                data = new
+                new
                 {
-                    idTransaction = id
+                    status = "success",
+                    message = "Create transaction successfully.",
+                    data = new
+                    {
+                        idTransaction = id
+                    }
                 }
-            }
             );
         }
 
