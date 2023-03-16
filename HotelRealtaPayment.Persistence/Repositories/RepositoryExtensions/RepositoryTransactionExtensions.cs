@@ -16,6 +16,18 @@ public static class RepositoryTransactionExtensions
 
         return transactions.Where(t => t.PatrTrxNumber.ToLower().Trim().Contains(k));
     }
+    
+    public static IQueryable<Transaction> Filter(this IQueryable<Transaction> transactions, string filter)
+    {
+        
+        if (string.IsNullOrWhiteSpace(filter))
+            return transactions;
+        
+        var k = filter.Trim().ToLower();
+
+        return transactions.Where(t => t.PatrType.ToLower().Trim().Equals(k));
+    }
+
 
     public static IQueryable<Transaction> Sort(this IQueryable<Transaction> transactions, string orderByQueryString)
     {

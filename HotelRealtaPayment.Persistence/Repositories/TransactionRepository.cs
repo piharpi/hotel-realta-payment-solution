@@ -139,19 +139,13 @@ namespace HotelRealtaPayment.Persistence.Repositories
 			                    ON us.user_id = patr.patr_user_id
                                 ORDER BY patr_trx_number",
                 CommandType = CommandType.Text,
-                CommandParameters = new SqlCommandParameterModel[] {
-                    new()
-                    {
-                        ParameterName = "@type",
-                        DataType = DbType.String,
-                        Value = transactionParameter.Type.Trim().ToLower()
-                    }
-                }
+                CommandParameters = Array.Empty<SqlCommandParameterModel>()
             };
             
             var transactions = await GetAllAsync<Transaction>(model);
             
             var transactionSearch = transactions.AsQueryable()
+                .Filter(transactionParameter.Type)
                 .Search(transactionParameter.SearchTerm)
                 .Sort(transactionParameter.OrderBy);
 
