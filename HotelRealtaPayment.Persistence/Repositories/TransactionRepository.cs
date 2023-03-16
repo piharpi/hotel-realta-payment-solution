@@ -5,6 +5,7 @@ using HotelRealtaPayment.Persistence.RepositoryContext;
 using System.Data;
 using HotelRealtaPayment.Contract.Models;
 using HotelRealtaPayment.Domain.RequestFeatures;
+using HotelRealtaPayment.Persistence.Repositories.RepositoryExtensions;
 
 namespace HotelRealtaPayment.Persistence.Repositories
 {
@@ -136,42 +137,27 @@ namespace HotelRealtaPayment.Persistence.Repositories
                                 FROM Payment.payment_transaction patr
                                 LEFT JOIN Users.users us
 			                    ON us.user_id = patr.patr_user_id
-                                WHERE LOWER(patr.patr_trx_number) LIKE '%'+@searchTerm+'%'
-                                AND LOWER(patr.patr_trx_number) LIKE '%'+@type+'%'
-                                ORDER BY patr_trx_number
-                                OFFSET @pageNumber ROWS FETCH NEXT @pageSize ROWS ONLY;",
+                                ORDER BY patr_trx_number",
                 CommandType = CommandType.Text,
                 CommandParameters = new SqlCommandParameterModel[] {
-                    new() {
-                        ParameterName = "@pageNumber",
-                        DataType = DbType.Int32,
-                        Value = transactionParameter.PageNumber
-                    },
-                    new()
-                    {
-                        ParameterName = "@pageSize",
-                        DataType = DbType.Int32,
-                        Value = transactionParameter.PageSize
-                    },
                     new()
                     {
                         ParameterName = "@type",
                         DataType = DbType.String,
                         Value = transactionParameter.Type.Trim().ToLower()
-                    },
-                    new()
-                    {
-                        ParameterName = "@searchTerm",
-                        DataType = DbType.String,
-                        Value = transactionParameter.SearchTerm.Trim().ToLower()
                     }
                 }
             };
-
+            
             var transactions = await GetAllAsync<Transaction>(model);
-            var totalRow = (await FindAllTransactionAsync()).Count();
+            
+            var transactionSearch = transactions.AsQueryable()
+                .Search(transactionParameter.SearchTerm)
+                .Sort(transactionParameter.OrderBy);
 
-            return new PagedList<Transaction>(transactions.ToList(), totalRow, transactionParameter.PageNumber, transactionParameter.PageSize);
+            // var totalRow = (await FindAllTransactionAsync()).Count();
+            
+            return PagedList<Transaction>.ToPagedList(transactionSearch.ToList(), transactionParameter.PageNumber, transactionParameter.PageSize);
         }
 
         public Transaction FindTransactionById(int transactionId)

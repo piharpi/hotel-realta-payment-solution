@@ -7,9 +7,13 @@
         {
             MetaData = new MetaData
             {
+                // TotalCount = count,
+                // PageSize = pageSize,
+                // CurrentPage = (pageNumber / pageSize) < 1 ? 1 : (pageNumber / pageSize) + 1,
+                // TotalPages = (int)Math.Ceiling(count / (double)pageSize)
                 TotalCount = count,
                 PageSize = pageSize,
-                CurrentPage = (pageNumber / pageSize) < 1 ? 1 : (pageNumber / pageSize) + 1,
+                CurrentPage = pageNumber,
                 TotalPages = (int)Math.Ceiling(count / (double)pageSize)
             };
 

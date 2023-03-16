@@ -6,11 +6,7 @@ public abstract class RequestParameters
     private int _pageSize = 5;
     private int _pageNumber;
 
-    public int PageNumber
-    {
-        get => _pageNumber;
-        set => _pageNumber = (value < 1) ? 0 : (value - 1) * PageSize;
-    }
+    public int PageNumber { get; set; } = 1;
 
     public int PageSize
     {
