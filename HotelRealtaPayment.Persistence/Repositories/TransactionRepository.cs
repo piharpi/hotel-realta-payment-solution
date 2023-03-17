@@ -390,5 +390,37 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
             return Create<T>(model);
         }
+
+        public T PayOrder<T>(Transaction order)
+        {
+            var model = new SqlCommandModel()
+            {
+                CommandText = @"[Payment].[spCreateTransferOrderMenu]",
+                CommandType = CommandType.StoredProcedure,
+                CommandParameters = new SqlCommandParameterModel[]
+                {
+                    new()
+                    {
+                        ParameterName = "@orme_order_number",
+                        DataType = DbType.String,
+                        Value = order.PatrOrderNumber
+                    },
+                    new()
+                    {
+                        ParameterName = "@orme_card_number",
+                        DataType = DbType.String,
+                        Value = order.PatrSourceId
+                    },
+                    new()
+                    {
+                        ParameterName = "@orme_user_id",
+                        DataType = DbType.Int32,
+                        Value = order.PatrUserId
+                    }
+                }
+            };
+
+            return Create<T>(model);
+        }
     }
 }

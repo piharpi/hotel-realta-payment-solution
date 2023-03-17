@@ -2,7 +2,7 @@
 
 namespace HotelRealtaPayment.Contract.Models;
 
-public class TransactionBookDto
+public class TransactionBookOrderDto
 {
     [Required] public string OrderNumber { get; set; }
     [Required] public string CardNumber { get; set; }

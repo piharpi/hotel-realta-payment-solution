@@ -181,13 +181,13 @@ namespace HotelRealtaPayment.WebApi.Controllers
         
         // POST api/<TransactionsController>/topup
         [HttpPost("book")]
-        public IActionResult PostTopUp([FromBody] TransactionBookDto bookDto)
+        public IActionResult PostBook([FromBody] TransactionBookOrderDto bookOrderDto)
         {
             var book = new Transaction()
             {
-                PatrOrderNumber = bookDto.OrderNumber,
-                PatrSourceId = bookDto.CardNumber,
-                PatrUserId = bookDto.UserId
+                PatrOrderNumber = bookOrderDto.OrderNumber,
+                PatrSourceId = bookOrderDto.CardNumber,
+                PatrUserId = bookOrderDto.UserId
             };
 
             var id = _repoManager.TransactionRepository.PayBook<int>(book);
@@ -205,9 +205,33 @@ namespace HotelRealtaPayment.WebApi.Controllers
             );
         }
         
+        [HttpPost("order")]
+        public IActionResult PostOrder([FromBody] TransactionBookOrderDto bookOrderDto)
+        {
+            var order = new Transaction()
+            {
+                PatrOrderNumber = bookOrderDto.OrderNumber,
+                PatrSourceId = bookOrderDto.CardNumber,
+                PatrUserId = bookOrderDto.UserId
+            };
+
+            var id = _repoManager.TransactionRepository.PayOrder<int>(order);
+
+            return CreatedAtRoute("GetTransaction", new { id },
+                new
+                {
+                    status = "success",
+                    message = "Create Order transaction successfully.",
+                    data = new
+                    {
+                        id
+                    }
+                }
+            );
+        }
         // [HttpPost("repayment")]
+        
         // [HttpPost("refund")]
-        // [HttpPost("order-menu")]
 
         // PUT api/<TransactionsController>/5
         [HttpPut("{id}")]

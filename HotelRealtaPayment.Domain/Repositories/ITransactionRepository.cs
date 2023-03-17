@@ -16,5 +16,6 @@ namespace HotelRealtaPayment.Domain.Repositories
         int Edit(Transaction transaction);
         int Remove(int transactionId);
         T PayBook<T>(Transaction book);
+        T PayOrder<T>(Transaction order);
     }
 }
