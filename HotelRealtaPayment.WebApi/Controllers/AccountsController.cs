@@ -1,5 +1,6 @@
 ﻿using HotelRealtaPayment.Contract.Models;
 using HotelRealtaPayment.Domain.Base;
+using HotelRealtaPayment.Domain.Dto;
 using HotelRealtaPayment.Domain.Entities;
 using HotelRealtaPayment.Services.Abstraction;
 using Microsoft.AspNetCore.Mvc;
@@ -77,6 +78,22 @@ namespace HotelRealtaPayment.WebApi.Controllers
             {
                 return NotFound();
             }
+        }
+        
+        // GET api/<AccountsController>/users/5
+        [HttpGet("users/{id}", Name = "GetUserAccountInfo")]
+        public IActionResult GetUserAccountInfo(int id)
+        {
+            var a = _repoManager.AccountRepository.FindAccountByUserId(id);
+
+            return Ok(new
+            {
+                status = "success",
+                data = new
+                {
+                    accounts = a.ToList()
+                }
+            });
         }
 
         // POST api/<AccountsController>

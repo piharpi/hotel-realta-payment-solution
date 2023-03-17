@@ -3,6 +3,7 @@ using HotelRealtaPayment.Domain.Repositories;
 using HotelRealtaPayment.Persistence.Base;
 using HotelRealtaPayment.Persistence.RepositoryContext;
 using System.Data;
+using HotelRealtaPayment.Domain.Dto;
 
 namespace HotelRealtaPayment.Persistence.Repositories
 {
@@ -204,6 +205,34 @@ namespace HotelRealtaPayment.Persistence.Repositories
             _adoContext.Dispose();
 
             return rowAffected;
+        }
+
+        public IEnumerable<AccountUser> FindAccountByUserId(int id)
+        {
+            var model = new SqlCommandModel()
+            {
+                CommandText = @"SELECT usac_account_number AccountNumber,
+                                       user_id UserId,
+                                       usac_saldo Saldo,
+                                       usac_type Type,
+                                       payment_name PaymentName
+                                  FROM Payment.fnGetUserBalance(@userId)",
+                CommandType = CommandType.Text,
+                CommandParameters = new SqlCommandParameterModel[]
+                {
+                    new()
+                    {
+                        ParameterName = "@userId",
+                        DataType = DbType.Int32,
+                        Value = id
+                    }
+                }
+            };
+
+            var listOfAccount = FindByCondition<AccountUser>(model);
+            
+            while (listOfAccount.MoveNext())
+                yield return listOfAccount.Current;
         }
     }
 }
