@@ -1,2 +1,14 @@
 .vs
 .fake
+HotelRealtaPayment.Contract/bin
+HotelRealtaPayment.Contract/obj
+HotelRealtaPayment.Domain/bin
+HotelRealtaPayment.Domain/obj
+HotelRealtaPayment.Services/bin
+HotelRealtaPayment.Services/obj
+HotelRealtaPayment.Services.Abstraction/bin
+HotelRealtaPayment.Services.Abstraction/obj
+HotelRealtaPayment.Persistence/bin
+HotelRealtaPayment.Persistence/obj
+HotelRealtaPayment.WebApi/bin
+HotelRealtaPayment.WebApi/obj
