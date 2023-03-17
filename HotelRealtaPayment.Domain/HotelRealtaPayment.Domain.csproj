@@ -10,4 +10,8 @@
         <Folder Include="Entities\Payment\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\HotelRealtaPayment.Contract\HotelRealtaPayment.Contract.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -152,43 +152,62 @@ namespace HotelRealtaPayment.WebApi.Controllers
             });
         }
 
-        // POST api/<TransactionsController>
-        [HttpPost]
+        // POST api/<TransactionsController>/topup
         [HttpPost("topup")]
-        // [HttpPost("transfer-booking")]
-        // [HttpPost("repayment")]
-        // [HttpPost("refund")]
-        // [HttpPost("order-menu")]
-        public IActionResult Post([FromBody] TransactionDto transactionDto)
+        public IActionResult PostTopUp([FromBody] TransactionTopUpDto topUpDto)
         {
-            var transaction = new Transaction()
+            var topUp = new Transaction()
             {
-                PatrTrxNumber = transactionDto.TransactionNumber,
-                PatrDebet = transactionDto.Debet,
-                PatrCredit = transactionDto.Credit,
-                PatrType = transactionDto.Type,
-                PatrNote = transactionDto.Note,
-                PatrSourceId = transactionDto.SourceId,
-                PatrTargetId = transactionDto.TargetId,
-                PatrOrderNumber = transactionDto.OrderNumber,
-                PatrTrxNumberRef = transactionDto.TransactionRef,
-                PatrUserId = transactionDto.UserId
+                PatrSourceId = topUpDto.SourceAccount,
+                PatrTargetId = topUpDto.TargetAccount,
+                PatrCredit = topUpDto.Amount,
+                PatrUserId = topUpDto.UserId
             };
 
-            var id = _repoManager.TransactionRepository.Insert<int>(transaction);
+            var id = _repoManager.TransactionRepository.Transfer<int>(topUp);
 
-            return CreatedAtRoute("GetTransaction", new { id = id },
+            return CreatedAtRoute("GetTransaction", new { id },
                 new
                 {
                     status = "success",
-                    message = "Create transaction successfully.",
+                    message = "Create TopUp transaction successfully.",
                     data = new
                     {
-                        idTransaction = id
+                        id
                     }
                 }
             );
         }
+        
+        // POST api/<TransactionsController>/topup
+        [HttpPost("book")]
+        public IActionResult PostTopUp([FromBody] TransactionBookDto bookDto)
+        {
+            var book = new Transaction()
+            {
+                PatrOrderNumber = bookDto.OrderNumber,
+                PatrSourceId = bookDto.CardNumber,
+                PatrUserId = bookDto.UserId
+            };
+
+            var id = _repoManager.TransactionRepository.PayBook<int>(book);
+
+            return CreatedAtRoute("GetTransaction", new { id },
+                new
+                {
+                    status = "success",
+                    message = "Create Book transaction successfully.",
+                    data = new
+                    {
+                        id
+                    }
+                }
+            );
+        }
+        
+        // [HttpPost("repayment")]
+        // [HttpPost("refund")]
+        // [HttpPost("order-menu")]
 
         // PUT api/<TransactionsController>/5
         [HttpPut("{id}")]

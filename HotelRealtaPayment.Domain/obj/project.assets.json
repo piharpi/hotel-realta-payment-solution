@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {}
+    "net6.0": {
+      "HotelRealtaPayment.Contract/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/HotelRealtaPayment.Contract.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HotelRealtaPayment.Contract.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "HotelRealtaPayment.Contract/1.0.0": {
+      "type": "project",
+      "path": "../HotelRealtaPayment.Contract/HotelRealtaPayment.Contract.csproj",
+      "msbuildProject": "../HotelRealtaPayment.Contract/HotelRealtaPayment.Contract.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0": []
+    "net6.0": [
+      "HotelRealtaPayment.Contract >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Code.id\\.nuget\\packages\\": {}
@@ -33,7 +52,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Contract\\HotelRealtaPayment.Contract.csproj": {
+              "projectPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Contract\\HotelRealtaPayment.Contract.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -173,6 +173,9 @@
       "HotelRealtaPayment.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "HotelRealtaPayment.Contract": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/HotelRealtaPayment.Domain.dll": {}
         },

@@ -3,7 +3,6 @@ using HotelRealtaPayment.Domain.Repositories;
 using HotelRealtaPayment.Persistence.Base;
 using HotelRealtaPayment.Persistence.RepositoryContext;
 using System.Data;
-using HotelRealtaPayment.Contract.Models;
 using HotelRealtaPayment.Domain.RequestFeatures;
 using HotelRealtaPayment.Persistence.Repositories.RepositoryExtensions;
 
@@ -13,6 +12,44 @@ namespace HotelRealtaPayment.Persistence.Repositories
     {
         public TransactionRepository(AdoDbContext adoContext) : base(adoContext)
         {
+        }
+
+        public T Transfer<T>(Transaction transaction)
+        {
+            var model = new SqlCommandModel()
+            {
+                CommandText = @"[Payment].[spCreateTransferTopUp]",
+                CommandType = CommandType.StoredProcedure,
+                CommandParameters = new SqlCommandParameterModel[]
+                {
+                    new()
+                    {
+                        ParameterName = "@source_account",
+                        DataType = DbType.String,
+                        Value = transaction.PatrSourceId
+                    },
+                    new()
+                    {
+                        ParameterName = "@target_account",
+                        DataType = DbType.String,
+                        Value = transaction.PatrTargetId
+                    },
+                    new()
+                    {
+                        ParameterName = "@amount",
+                        DataType = DbType.Decimal,
+                        Value = transaction.PatrCredit
+                    },
+                    new()
+                    {
+                        ParameterName = "@boor_user_id",
+                        DataType = DbType.Int32,
+                        Value = transaction.PatrUserId
+                    }
+                }
+            };
+
+            return Create<T>(model);
         }
 
         public int Edit(Transaction transaction)
@@ -299,7 +336,7 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
             return Create<T>(model);
         }
-
+        
         public int Remove(int transactionId)
         {
             var model = new SqlCommandModel()
@@ -320,6 +357,38 @@ namespace HotelRealtaPayment.Persistence.Repositories
             _adoContext.Dispose();
 
             return rowAffected;
+        }
+
+        public T PayBook<T>(Transaction book)
+        {
+            var model = new SqlCommandModel()
+            {
+                CommandText = @"[Payment].[spCreateTransferBooking]",
+                CommandType = CommandType.StoredProcedure,
+                CommandParameters = new SqlCommandParameterModel[]
+                {
+                    new()
+                    {
+                        ParameterName = "@boor_order_number",
+                        DataType = DbType.String,
+                        Value = book.PatrOrderNumber
+                    },
+                    new()
+                    {
+                        ParameterName = "@boor_card_number",
+                        DataType = DbType.String,
+                        Value = book.PatrSourceId
+                    },
+                    new()
+                    {
+                        ParameterName = "@boor_user_id",
+                        DataType = DbType.Int32,
+                        Value = book.PatrUserId
+                    }
+                }
+            };
+
+            return Create<T>(model);
         }
     }
 }

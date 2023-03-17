@@ -82,7 +82,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Contract\\HotelRealtaPayment.Contract.csproj": {
+                "projectPath": "C:\\Users\\Code.id\\Documents\\Harpi\\HotelRealtaPaymentSolution\\HotelRealtaPayment.Contract\\HotelRealtaPayment.Contract.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
