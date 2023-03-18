@@ -1,4 +1,5 @@
 ﻿using HotelRealtaPayment.Domain.Entities;
+using HotelRealtaPayment.Domain.RequestFeatures;
 
 namespace HotelRealtaPayment.Domain.Repositories
 {
@@ -10,5 +11,6 @@ namespace HotelRealtaPayment.Domain.Repositories
         T Insert<T>(Bank bank);
         int Edit(Bank bank);
         int Remove(int bankId);
+        Task<PagedList<Bank>> GetTransactionPageList(BankParameters bankParameters);
     }
 }

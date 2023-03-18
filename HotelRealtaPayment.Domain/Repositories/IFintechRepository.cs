@@ -1,4 +1,5 @@
 ﻿using HotelRealtaPayment.Domain.Entities;
+using HotelRealtaPayment.Domain.RequestFeatures;
 
 namespace HotelRealtaPayment.Domain.Repositories
 {
@@ -10,5 +11,6 @@ namespace HotelRealtaPayment.Domain.Repositories
         T Insert<T>(Fintech fintech);
         int Edit(Fintech fintech);
         int Remove(int fintechId);
+        Task<PagedList<Fintech>> GetTransactionPageList(FintechParameters fintechParameters);
     }
 }

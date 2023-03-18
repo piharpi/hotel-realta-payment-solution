@@ -86,9 +86,9 @@ namespace HotelRealtaPayment.WebApi.Controllers
             });
         }
         
-        // GET api/<ProductController>/5
+        // GET api/<ProductController>/pageList
         [HttpGet("pageList")]
-        public async Task<IActionResult> GetProductPageList([FromQuery] TransactionParameters transactionParameters)
+        public async Task<IActionResult> GetTransactionPageList([FromQuery] TransactionParameters transactionParameters)
         {
             var transactions = await _repoManager.TransactionRepository.GetTransactionPageList(transactionParameters);
 

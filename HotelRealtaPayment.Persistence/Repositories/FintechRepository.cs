@@ -1,8 +1,10 @@
 ﻿using HotelRealtaPayment.Domain.Entities;
 using HotelRealtaPayment.Domain.Repositories;
 using HotelRealtaPayment.Persistence.Base;
+using HotelRealtaPayment.Persistence.Repositories.RepositoryExtensions;
 using HotelRealtaPayment.Persistence.RepositoryContext;
 using System.Data;
+using HotelRealtaPayment.Domain.RequestFeatures;
 
 namespace HotelRealtaPayment.Persistence.Repositories
 {
@@ -156,6 +158,30 @@ namespace HotelRealtaPayment.Persistence.Repositories
             _adoContext.Dispose();
 
             return rowAffected;
+        }
+
+        public async Task<PagedList<Fintech>> GetTransactionPageList(FintechParameters fintechParameters)
+        {
+            var model = new SqlCommandModel()
+            {
+                CommandText = @"SELECT paga_entity_id Id, 
+                                       paga_code Code, 
+                                       paga_name Name, 
+                                       paga_modified_date ModifiedDate 
+                                  FROM Payment.Payment_Gateway",
+                CommandType = CommandType.Text,
+                CommandParameters = Array.Empty<SqlCommandParameterModel>()
+            };
+            
+            var fintechs = await GetAllAsync<Fintech>(model);
+            
+            var fintechSearch = fintechs.AsQueryable()
+                .Search(fintechParameters.SearchTerm)
+                .Sort(fintechParameters.OrderBy);
+
+            // var totalRow = (await FindAllTransactionAsync()).Count();
+            
+            return PagedList<Fintech>.ToPagedList(fintechSearch.ToList(), fintechParameters.PageNumber, fintechParameters.PageSize);
         }
     }
 }

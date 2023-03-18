@@ -1,8 +1,10 @@
 ﻿using HotelRealtaPayment.Contract.Models;
 using HotelRealtaPayment.Domain.Base;
 using HotelRealtaPayment.Domain.Entities;
+using HotelRealtaPayment.Domain.RequestFeatures;
 using HotelRealtaPayment.Services.Abstraction;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -36,6 +38,31 @@ namespace HotelRealtaPayment.WebApi.Controllers
 
             if (!string.IsNullOrEmpty(name))
                 b = b.Where(bank => bank.Name.ToLower().Contains(name.ToLower()));
+
+            return Ok(new
+            {
+                status = "success",
+                data = new
+                {
+                    banks = b
+                }
+            });
+        }
+        
+        // GET api/<ProductController>/pageList
+        [HttpGet("pageList")]
+        public async Task<IActionResult> GetBankPageList([FromQuery] BankParameters bankParameters)
+        {
+            var banks = await _repoManager.BankRepository.GetTransactionPageList(bankParameters);
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(banks.MetaData));
+            var b = banks
+                .Select( bank=> new BankDto
+                {
+                    Id = bank.Id,
+                    Code = bank.Code,
+                    Name = bank.Name
+                });
 
             return Ok(new
             {

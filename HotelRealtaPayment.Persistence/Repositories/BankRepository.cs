@@ -3,6 +3,8 @@ using HotelRealtaPayment.Domain.Repositories;
 using HotelRealtaPayment.Persistence.Base;
 using HotelRealtaPayment.Persistence.RepositoryContext;
 using System.Data;
+using HotelRealtaPayment.Domain.RequestFeatures;
+using HotelRealtaPayment.Persistence.Repositories.RepositoryExtensions;
 
 namespace HotelRealtaPayment.Persistence.Repositories
 {
@@ -158,6 +160,30 @@ namespace HotelRealtaPayment.Persistence.Repositories
             _adoContext.Dispose();
 
             return rowsAffected;
+        }
+
+        public async Task<PagedList<Bank>> GetTransactionPageList(BankParameters bankParameters)
+        {
+            var model = new SqlCommandModel()
+            {
+                CommandText = @"SELECT bank_entity_id Id, 
+                                       bank_code Code, 
+                                       bank_name Name,
+                                       bank_modified_date ModifiedDate
+                                  FROM Payment.Bank",
+                CommandType = CommandType.Text,
+                CommandParameters = Array.Empty<SqlCommandParameterModel>()
+            };
+            
+            var banks = await GetAllAsync<Bank>(model);
+            
+            var bankSearch = banks.AsQueryable()
+                .Search(bankParameters.SearchTerm)
+                .Sort(bankParameters.OrderBy);
+
+            // var totalRow = (await FindAllTransactionAsync()).Count();
+            
+            return PagedList<Bank>.ToPagedList(bankSearch.ToList(), bankParameters.PageNumber, bankParameters.PageSize);
         }
     }
 }

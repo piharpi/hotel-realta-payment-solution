@@ -1,8 +1,10 @@
 ﻿using HotelRealtaPayment.Contract.Models;
 using HotelRealtaPayment.Domain.Base;
 using HotelRealtaPayment.Domain.Entities;
+using HotelRealtaPayment.Domain.RequestFeatures;
 using HotelRealtaPayment.Services.Abstraction;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -76,6 +78,31 @@ namespace HotelRealtaPayment.WebApi.Controllers
             {
                 return NotFound();
             }
+        }
+        
+        // GET api/<ProductController>/pageList
+        [HttpGet("pageList")]
+        public async Task<IActionResult> GetFintechPageList([FromQuery] FintechParameters fintechParameters)
+        {
+            var fintechs = await _repoManager.FintechRepository.GetTransactionPageList(fintechParameters);
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(fintechs.MetaData));
+            var f = fintechs
+                .Select( fintech=> new BankDto
+                {
+                    Id = fintech.Id,
+                    Code = fintech.Code,
+                    Name = fintech.Name
+                });
+
+            return Ok(new
+            {
+                status = "success",
+                data = new
+                {
+                    fintechs = f
+                }
+            });
         }
 
         // POST api/<FintechsController>
