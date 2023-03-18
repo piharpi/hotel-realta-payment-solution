@@ -422,5 +422,63 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
             return Create<T>(model);
         }
+
+        public T RepayementBook<T>(Transaction repayment)
+        {
+            var model = new SqlCommandModel()
+            {
+                CommandText = @"[Payment].[spCreateTransferRepayment]",
+                CommandType = CommandType.StoredProcedure,
+                CommandParameters = new SqlCommandParameterModel[]
+                {
+                    new()
+                    {
+                        ParameterName = "@boor_order_number",
+                        DataType = DbType.String,
+                        Value = repayment.PatrOrderNumber
+                    },
+                    new()
+                    {
+                        ParameterName = "@boor_card_number",
+                        DataType = DbType.String,
+                        Value = repayment.PatrSourceId
+                    },
+                    new()
+                    {
+                        ParameterName = "@boor_user_id",
+                        DataType = DbType.Int32,
+                        Value = repayment.PatrUserId
+                    }
+                }
+            };
+
+            return Create<T>(model);
+        }
+
+        public T Refund<T>(Transaction target)
+        {
+            var model = new SqlCommandModel()
+            {
+                CommandText = @"[Payment].[spCreateTransferRefund]",
+                CommandType = CommandType.StoredProcedure,
+                CommandParameters = new SqlCommandParameterModel[]
+                {
+                    new()
+                    {
+                        ParameterName = "@boor_order_number",
+                        DataType = DbType.String,
+                        Value = target.PatrOrderNumber
+                    },
+                    new()
+                    {
+                        ParameterName = "@boor_user_id",
+                        DataType = DbType.Int32,
+                        Value = target.PatrUserId
+                    }
+                }
+            };
+
+            return Create<T>(model);
+        }
     }
 }

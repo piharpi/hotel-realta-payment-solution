@@ -1,4 +1,5 @@
 ﻿using HotelRealtaPayment.Contract.Models;
+using HotelRealtaPayment.Contract.Models.FrontEnd;
 using HotelRealtaPayment.Domain.Base;
 using HotelRealtaPayment.Domain.Entities;
 using HotelRealtaPayment.Domain.RequestFeatures;
@@ -229,10 +230,57 @@ namespace HotelRealtaPayment.WebApi.Controllers
                 }
             );
         }
-        // [HttpPost("repayment")]
         
-        // [HttpPost("refund")]
+        [HttpPost("repayment")]
+        public IActionResult PostRepayment([FromBody] TransactionRepaymentDto repaymentDto)
+        {
+            var repay = new Transaction()
+            {
+                PatrOrderNumber = repaymentDto.OrderNumber,
+                PatrSourceId = repaymentDto.CardNumber,
+                PatrUserId = repaymentDto.UserId
+            };
 
+            var id = _repoManager.TransactionRepository.RepayementBook<int>(repay);
+
+            return CreatedAtRoute("GetTransaction", new { id },
+                new
+                {
+                    status = "success",
+                    message = "Create Repayment transaction successfully.",
+                    data = new
+                    {
+                        id
+                    }
+                }
+            );
+        }
+        
+        [HttpPost("refund")]
+        public IActionResult PostRepayment([FromBody] TransactionRefundDto refundDto)
+        {
+            var target = new Transaction()
+            {
+                PatrOrderNumber = refundDto.OrderNumber,
+                PatrUserId = refundDto.UserId
+            };
+
+            var id = _repoManager.TransactionRepository.Refund<int>(target);
+
+            return CreatedAtRoute("GetTransaction", new { id },
+                new
+                {
+                    status = "success",
+                    message = "Create Refund Repayment transaction successfully.",
+                    data = new
+                    {
+                        id
+                    }
+                }
+            );
+        }
+
+        
         // PUT api/<TransactionsController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
