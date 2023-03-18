@@ -271,7 +271,7 @@ namespace HotelRealtaPayment.WebApi.Controllers
                 new
                 {
                     status = "success",
-                    message = "Create Refund Repayment transaction successfully.",
+                    message = "Create Refund transaction successfully.",
                     data = new
                     {
                         id
