@@ -1,9 +1,10 @@
 ﻿using HotelRealtaPayment.Contract.Models;
 using HotelRealtaPayment.Domain.Base;
-using HotelRealtaPayment.Domain.Dto;
 using HotelRealtaPayment.Domain.Entities;
+using HotelRealtaPayment.Domain.RequestFeatures;
 using HotelRealtaPayment.Services.Abstraction;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -42,6 +43,32 @@ namespace HotelRealtaPayment.WebApi.Controllers
                 data = new
                 {
                     accounts = a
+                }
+            });
+        }
+        
+        // GET: api/<AccountsController>/pageslist
+        [HttpGet("pagelist")]
+        public async Task<IActionResult> GetAccountPageList([FromQuery] AccountParameters accountParameters)
+        {
+            var accounts = await _repoManager.AccountRepository.GetTransactionPageList(accountParameters);
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(accounts.MetaData));
+            var ac = accounts
+                .Select(a => new AccountDto
+                {
+                    Number = a.AccountNumber,
+                    CodeName = a.CodeName,
+                    Saldo = a.Saldo,
+                    Type = a.Type
+                });
+
+            return Ok(new
+            {
+                status = "success",
+                data = new
+                {
+                    accounts = ac
                 }
             });
         }

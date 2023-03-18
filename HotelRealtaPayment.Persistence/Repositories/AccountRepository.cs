@@ -4,6 +4,8 @@ using HotelRealtaPayment.Persistence.Base;
 using HotelRealtaPayment.Persistence.RepositoryContext;
 using System.Data;
 using HotelRealtaPayment.Domain.Dto;
+using HotelRealtaPayment.Domain.RequestFeatures;
+using HotelRealtaPayment.Persistence.Repositories.RepositoryExtensions;
 
 namespace HotelRealtaPayment.Persistence.Repositories
 {
@@ -233,6 +235,30 @@ namespace HotelRealtaPayment.Persistence.Repositories
             
             while (listOfAccount.MoveNext())
                 yield return listOfAccount.Current;
+        }
+
+        public async Task<PagedList<Account>> GetTransactionPageList(AccountParameters accountParameters)
+        {
+            var model = new SqlCommandModel()
+            {
+            CommandText = @"SELECT usac_account_number AccountNumber, 
+			                     CONCAT(ba.bank_name, pg.paga_code) as CodeName,
+			                     usac_saldo Saldo, usac_type Type
+                            FROM Payment.User_Accounts ua
+                       LEFT JOIN Payment.entity en ON usac_entity_id=entity_id
+                       LEFT JOIN Payment.bank ba ON bank_entity_id=entity_id
+                       LEFT JOIN Payment.payment_gateway pg ON paga_entity_id=entity_id",
+                CommandType = CommandType.Text,
+                CommandParameters = Array.Empty<SqlCommandParameterModel>()
+            };
+            
+            var accounts = await GetAllAsync<Account>(model);
+            
+            var accountSearch = accounts.AsQueryable()
+                .Search(accountParameters.SearchTerm)
+                .Sort(accountParameters.OrderBy);
+
+            return PagedList<Account>.ToPagedList(accountSearch.ToList(), accountParameters.PageNumber, accountParameters.PageSize);
         }
     }
 }

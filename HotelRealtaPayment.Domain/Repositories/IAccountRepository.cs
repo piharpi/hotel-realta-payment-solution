@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using HotelRealtaPayment.Domain.Dto;
 using HotelRealtaPayment.Domain.Entities;
+using HotelRealtaPayment.Domain.RequestFeatures;
 
 namespace HotelRealtaPayment.Domain.Repositories
 {
@@ -13,5 +14,6 @@ namespace HotelRealtaPayment.Domain.Repositories
         int Edit(Account account);
         int Remove(int accountId);
         IEnumerable<AccountUser> FindAccountByUserId(int id);
+        Task<PagedList<Account>> GetTransactionPageList(AccountParameters accountParameters);
     }
 }

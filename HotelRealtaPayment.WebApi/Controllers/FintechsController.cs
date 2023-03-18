@@ -88,7 +88,7 @@ namespace HotelRealtaPayment.WebApi.Controllers
 
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(fintechs.MetaData));
             var f = fintechs
-                .Select( fintech=> new BankDto
+                .Select( fintech=> new FintechDto()
                 {
                     Id = fintech.Id,
                     Code = fintech.Code,
