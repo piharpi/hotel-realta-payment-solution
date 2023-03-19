@@ -35,9 +35,13 @@ namespace HotelRealtaPayment.Persistence.Repositories
         {
             const string query = @"UPDATE Payment.User_Accounts
                                       SET usac_account_number = @accountNumber,
+                                          usac_modified_date = @usacModified,
+                                          usac_entity_id = @entityId,
+                                          usac_expmonth = @expMonth,
+                                          usac_expyear = @expYear,
                                           usac_saldo = @saldo,
-                                          usac_modified_date = @usacModified
-                                    WHERE usac_entity_id = @id;";
+                                          usac_type = @type
+                                    WHERE usac_id = @id;";
 
             var parameters = new SqlCommandParameterModel[]
             {
@@ -64,6 +68,30 @@ namespace HotelRealtaPayment.Persistence.Repositories
                     ParameterName = "@usacModified",
                     DataType = DbType.DateTime,
                     Value = DateTime.Now
+                },
+                new()
+                {
+                    ParameterName = "@entityId",
+                    DataType = DbType.Int32,
+                    Value = account.EntityId
+                },
+                new()
+                {
+                    ParameterName = "@expMonth",
+                    DataType = DbType.Byte,
+                    Value = account.Expmonth
+                },
+                new()
+                {
+                    ParameterName = "@expYear",
+                    DataType = DbType.Int16,
+                    Value = account.Expyear
+                },
+                new()
+                {
+                    ParameterName = "@type",
+                    DataType = DbType.String,
+                    Value = account.Type
                 }
             };
 
@@ -136,7 +164,7 @@ namespace HotelRealtaPayment.Persistence.Repositories
                     {
                         ParameterName = "@entityId",
                         DataType = DbType.Int32,
-                        Value = account.Id
+                        Value = account.EntityId
                     },
                     new()
                     {
@@ -190,7 +218,7 @@ namespace HotelRealtaPayment.Persistence.Repositories
         {
             var model = new SqlCommandModel()
             {
-                CommandText = "DELETE FROM Payment.User_Accounts WHERE usac_entity_id=@id;",
+                CommandText = "DELETE FROM Payment.User_Accounts WHERE usac_id=@id;",
                 CommandType = CommandType.Text,
                 CommandParameters = new SqlCommandParameterModel[]
                 {

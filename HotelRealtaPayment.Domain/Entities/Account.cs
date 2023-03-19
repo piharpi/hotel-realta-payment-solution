@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace HotelRealtaPayment.Domain.Entities
@@ -26,6 +25,6 @@ namespace HotelRealtaPayment.Domain.Entities
         public Int16? Expyear { get; set; }
         
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public DateTime? ModifiedDate { get; set; } = DateTime.Now;
+        public DateTime? ModifiedDate { get; set; }
     }
 }

@@ -216,7 +216,10 @@ namespace HotelRealtaPayment.WebApi.Controllers
                 Id = id,
                 AccountNumber = accountDto.Number,
                 Saldo = accountDto.Saldo,
-                Type = accountDto.Type
+                Type = accountDto.Type,
+                Expmonth = accountDto.ExpMonth,
+                Expyear = accountDto.ExpYear,
+                EntityId = accountDto.EntityId
             };
 
             var rows = _repoManager.AccountRepository.Edit(account);
