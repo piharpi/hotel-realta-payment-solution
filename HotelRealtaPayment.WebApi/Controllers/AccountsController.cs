@@ -51,7 +51,7 @@ namespace HotelRealtaPayment.WebApi.Controllers
         [HttpGet("pagelist")]
         public async Task<IActionResult> GetAccountPageList([FromQuery] AccountParameters accountParameters)
         {
-            var accounts = await _repoManager.AccountRepository.GetTransactionPageList(accountParameters);
+            var accounts = await _repoManager.AccountRepository.GetAccountPageList(accountParameters);
 
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(accounts.MetaData));
             var ac = accounts
@@ -61,6 +61,36 @@ namespace HotelRealtaPayment.WebApi.Controllers
                     CodeName = a.CodeName,
                     Saldo = a.Saldo,
                     Type = a.Type
+                });
+
+            return Ok(new
+            {
+                status = "success",
+                data = new
+                {
+                    accounts = ac
+                }
+            });
+        }
+        
+        [HttpGet("users/{id}/pagelist", Name = "GetAccountDetailList")]
+        public async Task<IActionResult> GetAccountDetailList([FromQuery] AccountParameters accountParameters, int id)
+        {
+            var accounts = await _repoManager.AccountRepository.GetAccountDetailPageList(accountParameters, id);
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(accounts.MetaData));
+            var ac = accounts
+                .Select(a => new AccountDto
+                {
+                    Id = a.Id,
+                    Number = a.AccountNumber,
+                    UserId = a.UserId,
+                    EntityId = a.EntityId,
+                    CodeName = a.CodeName,
+                    Saldo = a.Saldo,
+                    Type = a.Type,
+                    ExpMonth = a.Expmonth,
+                    ExpYear = a.Expyear
                 });
 
             return Ok(new
@@ -112,7 +142,7 @@ namespace HotelRealtaPayment.WebApi.Controllers
         public IActionResult GetUserAccountInfo(int id)
         {
             var a = _repoManager.AccountRepository.FindAccountByUserId(id);
-
+        
             return Ok(new
             {
                 status = "success",
@@ -129,9 +159,9 @@ namespace HotelRealtaPayment.WebApi.Controllers
         {
             var account = new Account()
             {
+                Id = accountDto.Id,
                 UserId = accountDto.UserId,
                 AccountNumber = accountDto.Number,
-                Id = accountDto.Id,
                 Saldo = accountDto.Saldo,
                 Type = accountDto.Type,
                 Expmonth = accountDto.ExpMonth,

@@ -10,6 +10,8 @@ namespace HotelRealtaPayment.Domain.Entities
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int Id { get; set; }
         public int UserId { get; set; }
+        
+        public int EntityId { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? CodeName { get; set; }

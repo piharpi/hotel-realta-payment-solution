@@ -61,6 +61,20 @@ namespace HotelRealtaPayment.Persistence.Base
 
             return listData;
         }
+        
+        public async Task<IEnumerable<TValue>> FindByConditionAsync<TValue>(SqlCommandModel model)
+        {
+            var dataT = _adoContext.ExecuteReaderAsync<TValue>(model);
+            var listData = new List<TValue>();
+            
+            while(await dataT.MoveNextAsync())
+            {
+                listData.Add(dataT.Current);
+            }
+
+            _adoContext.DisposeAsync();
+            return listData;
+        }
 
         public IAsyncEnumerator<T> FindAllAsync<T>(SqlCommandModel model)
         {

@@ -14,6 +14,7 @@ namespace HotelRealtaPayment.Domain.Repositories
         int Edit(Account account);
         int Remove(int accountId);
         IEnumerable<AccountUser> FindAccountByUserId(int id);
-        Task<PagedList<Account>> GetTransactionPageList(AccountParameters accountParameters);
+        Task<PagedList<Account>> GetAccountPageList(AccountParameters accountParameters);
+        Task<PagedList<Account>> GetAccountDetailPageList(AccountParameters accountParameters, int id);
     }
 }

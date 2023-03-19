@@ -237,7 +237,7 @@ namespace HotelRealtaPayment.Persistence.Repositories
                 yield return listOfAccount.Current;
         }
 
-        public async Task<PagedList<Account>> GetTransactionPageList(AccountParameters accountParameters)
+        public async Task<PagedList<Account>> GetAccountPageList(AccountParameters accountParameters)
         {
             var model = new SqlCommandModel()
             {
@@ -253,6 +253,43 @@ namespace HotelRealtaPayment.Persistence.Repositories
             };
             
             var accounts = await GetAllAsync<Account>(model);
+            
+            var accountSearch = accounts.AsQueryable()
+                .Search(accountParameters.SearchTerm)
+                .Sort(accountParameters.OrderBy);
+
+            return PagedList<Account>.ToPagedList(accountSearch.ToList(), accountParameters.PageNumber, accountParameters.PageSize);
+        }
+
+        public async Task<PagedList<Account>> GetAccountDetailPageList(AccountParameters accountParameters, int id)
+        {
+            var model = new SqlCommandModel()
+            {
+                CommandText = @"SELECT usac_id Id,
+                                       usac_account_number AccountNumber,
+                                       usac_user_id UserId,
+                                       usac_entity_id EntityId,
+                                       CONCAT(ba.bank_name, pg.paga_code) as CodeName,
+                                       usac_saldo Saldo, usac_type Type,
+                                       usac_expmonth Expmonth, usac_expyear Expyear
+                                    FROM Payment.User_Accounts ua
+                                LEFT JOIN Payment.entity en ON usac_entity_id=entity_id
+                                LEFT JOIN Payment.bank ba ON bank_entity_id=entity_id
+                                LEFT JOIN Payment.payment_gateway pg ON paga_entity_id=entity_id
+                                    WHERE usac_user_id=@userId",
+                CommandType = CommandType.Text,
+                CommandParameters = new SqlCommandParameterModel[]
+                {
+                    new()
+                    {
+                        ParameterName = "@userId",
+                        DataType = DbType.Int32,
+                        Value = id
+                    }
+                }
+            };
+
+            var accounts = await FindByConditionAsync<Account>(model);
             
             var accountSearch = accounts.AsQueryable()
                 .Search(accountParameters.SearchTerm)

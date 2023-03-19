@@ -5,19 +5,22 @@ namespace HotelRealtaPayment.Contract.Models
 {
     public class AccountDto
     {
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
+        
+        [Required]
+        [JsonPropertyName("number")]
+        public string Number { get; set; }
+        
         [Required]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         [JsonPropertyName("userId")]
         public int UserId { get; set; }
 
-        [Required]
-        [JsonPropertyName("number")]
-        public string Number { get; set; }
-
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         [JsonPropertyName("entityId")]
-        public int Id { get; set; }
-
+        public int EntityId { get; set; }
         [JsonPropertyName("codeName")] public string? CodeName { get; set; }
 
         [Required] [JsonPropertyName("saldo")] public decimal Saldo { get; set; }

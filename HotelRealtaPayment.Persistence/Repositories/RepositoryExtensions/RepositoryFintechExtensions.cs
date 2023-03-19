@@ -14,7 +14,7 @@ public static class RepositoryFintechExtensions
 
         var k = keyword.Trim().ToLower();
 
-        return fintechs.Where(t => t.Name.ToLower().Trim().Contains(k));
+        return fintechs.Where(t => t.Code.ToLower().Trim().Contains(k) || t.Name.ToLower().Trim().Contains(k));
     }
 
     public static IQueryable<Fintech> Sort(this IQueryable<Fintech> fintechs, string orderByQueryString)
