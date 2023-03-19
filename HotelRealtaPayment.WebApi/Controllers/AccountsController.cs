@@ -47,6 +47,30 @@ namespace HotelRealtaPayment.WebApi.Controllers
             });
         }
         
+        // GET: api/<AccountsController>
+        [HttpGet("payments")]
+        public IActionResult GetAllPayment()
+        {
+            var p = _repoManager.AccountRepository
+                .GetAllPayment()
+                .Select(a => new PaymentDto
+                {
+                    Id = a.Id,
+                    Code = a.Code,
+                    Name = a.Name
+                    
+                });
+
+            return Ok(new
+            {
+                status = "success",
+                data = new
+                {
+                    payments = p
+                }
+            });
+        }
+        
         // GET: api/<AccountsController>/pageslist
         [HttpGet("pagelist")]
         public async Task<IActionResult> GetAccountPageList([FromQuery] AccountParameters accountParameters)

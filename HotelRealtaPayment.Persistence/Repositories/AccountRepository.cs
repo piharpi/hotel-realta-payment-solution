@@ -297,5 +297,15 @@ namespace HotelRealtaPayment.Persistence.Repositories
 
             return PagedList<Account>.ToPagedList(accountSearch.ToList(), accountParameters.PageNumber, accountParameters.PageSize);
         }
+
+        public IEnumerable<Payment> GetAllPayment()
+        {
+            const string query = @"SELECT * FROM Payment.fnGetAllPaymentType();";
+
+            var listOfAccount = FindAll<Payment>(query);
+
+            while (listOfAccount.MoveNext())
+                yield return listOfAccount.Current;
+        }
     }
 }

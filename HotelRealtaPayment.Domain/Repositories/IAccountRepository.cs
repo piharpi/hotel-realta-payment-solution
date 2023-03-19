@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using HotelRealtaPayment.Domain.Dto;
+﻿using HotelRealtaPayment.Domain.Dto;
 using HotelRealtaPayment.Domain.Entities;
 using HotelRealtaPayment.Domain.RequestFeatures;
 
@@ -16,5 +15,6 @@ namespace HotelRealtaPayment.Domain.Repositories
         IEnumerable<AccountUser> FindAccountByUserId(int id);
         Task<PagedList<Account>> GetAccountPageList(AccountParameters accountParameters);
         Task<PagedList<Account>> GetAccountDetailPageList(AccountParameters accountParameters, int id);
+        IEnumerable<Payment> GetAllPayment();
     }
 }
