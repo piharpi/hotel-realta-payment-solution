@@ -183,7 +183,7 @@ namespace HotelRealtaPayment.WebApi.Controllers
         {
             var account = new Account()
             {
-                Id = accountDto.Id,
+                EntityId = accountDto.EntityId,
                 UserId = accountDto.UserId,
                 AccountNumber = accountDto.Number,
                 Saldo = accountDto.Saldo,

@@ -153,10 +153,10 @@ namespace HotelRealtaPayment.Persistence.Repositories
             {
                 CommandText = @"INSERT INTO Payment.User_Accounts 
                                 (usac_entity_id, usac_user_id, usac_account_number, usac_saldo,
-                                 usac_type, usac_expmonth, usac_expyear, usac_modified_date)
-                                OUTPUT INSERTED.usac_entity_id 
+                                 usac_type, usac_expmonth, usac_expyear)
+                                OUTPUT INSERTED.usac_id 
                                 VALUES (@entityId, @userId, @accountNumber, @saldo,
-                                        @type, @expmonth, @expyear, @usacModified);",
+                                        @type, @expmonth, @expyear);",
                 CommandType = CommandType.Text,
                 CommandParameters = new SqlCommandParameterModel[]
                 {
@@ -194,19 +194,15 @@ namespace HotelRealtaPayment.Persistence.Repositories
                     {
                         ParameterName = "@expmonth",
                         IsNullable = true,
+                        DataType = DbType.Byte,
                         Value = account.Expmonth.HasValue ? account.Expmonth : DBNull.Value
                     },
                     new()
                     {
                         ParameterName = "@expyear",
                         IsNullable = true,
+                        DataType = DbType.Int16,
                         Value = account.Expyear.HasValue ? account.Expyear : DBNull.Value
-                    },
-                    new()
-                    {
-                        ParameterName = "@usacModified",
-                        DataType = DbType.DateTime,
-                        Value = DateTime.Now
                     }
                 }
             };
