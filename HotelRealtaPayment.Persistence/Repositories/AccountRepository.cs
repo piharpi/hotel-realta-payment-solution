@@ -79,13 +79,13 @@ namespace HotelRealtaPayment.Persistence.Repositories
                 {
                     ParameterName = "@expMonth",
                     DataType = DbType.Byte,
-                    Value = account.Expmonth
+                    Value = account.Expmonth.HasValue ? account.Expmonth : DBNull.Value
                 },
                 new()
                 {
                     ParameterName = "@expYear",
                     DataType = DbType.Int16,
-                    Value = account.Expyear
+                    Value = account.Expyear.HasValue ? account.Expyear : DBNull.Value
                 },
                 new()
                 {
