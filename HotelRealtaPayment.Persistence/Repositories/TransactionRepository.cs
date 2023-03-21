@@ -179,6 +179,19 @@ namespace HotelRealtaPayment.Persistence.Repositories
                 CommandParameters = Array.Empty<SqlCommandParameterModel>()
             };
             
+            // OFFSET @pageNumber ROWS FETCH NEXT @pageSize ROWS ONLY;
+            // new() {
+            //     ParameterName = "@pageNumber",
+            //     DataType = DbType.Int32,
+            //     Value = productParameters.PageNumber
+            // },
+            // new()
+            // {
+            //     ParameterName = "@pageSize",
+            //     DataType = DbType.Int32,
+            //     Value = productParameters.PageSize
+            // },
+            
             var transactions = await GetAllAsync<Transaction>(model);
             
             var transactionSearch = transactions.AsQueryable()
